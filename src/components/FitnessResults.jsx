@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { calculateAllMetrics } from "../util/fitness";
-import { Activity, Target, TrendingUp, Apple, Scale } from "lucide-react";
+import { Activity, Target, TrendingUp, Apple, Scale, AlertCircle } from "lucide-react";
 
 export default function FitnessResults({ userData }) {
   const results = calculateAllMetrics(userData);
