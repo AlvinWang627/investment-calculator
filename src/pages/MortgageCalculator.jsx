@@ -10,7 +10,7 @@ export default function MortgageCalculator() {
   const currentYear = new Date().getFullYear();
 
   const [userInput, setUserInput] = useState({
-    loanAmount: 5000000,
+    loanAmount: 500, // 萬元
     annualRate: 2.5,
     loanTerm: 20,
     gracePeriod: 2,
@@ -43,8 +43,14 @@ export default function MortgageCalculator() {
   let summary = null;
 
   if (validInput) {
-    schedule = calculateMortgageSchedule(userInput);
-    summary = calculateMortgageSummary(schedule, userInput.loanAmount, userInput.currentYear);
+    // 將萬元轉換為實際金額
+    const actualLoanAmount = userInput.loanAmount * 10000;
+    const calculationInput = {
+      ...userInput,
+      loanAmount: actualLoanAmount,
+    };
+    schedule = calculateMortgageSchedule(calculationInput);
+    summary = calculateMortgageSummary(schedule, actualLoanAmount, userInput.currentYear);
   }
 
   return (
