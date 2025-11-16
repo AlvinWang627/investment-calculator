@@ -17,6 +17,12 @@ export default function Sidebar() {
               <span>Investment Calculator</span>
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/mortgage-calculator">
+              <span className="icon">🏡</span>
+              <span>房貸計算機</span>
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </aside>
