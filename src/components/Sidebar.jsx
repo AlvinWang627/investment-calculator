@@ -23,6 +23,12 @@ export default function Sidebar() {
               <span>房貸計算機</span>
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/fitness-calculator">
+              <span className="icon">💪</span>
+              <span>健身計算機</span>
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </aside>
