@@ -24,6 +24,13 @@ export default function Home() {
           <p>計算您的房貸還款計劃，包含寬限期選項。</p>
           <span className="tool-link">開始計算 →</span>
         </Link>
+
+        <Link to="/fitness-calculator" className="tool-card">
+          <div className="tool-icon">💪</div>
+          <h2>健身計算機</h2>
+          <p>計算 BMI、BMR/TDEE、FFMI、理想體重和營養素需求。</p>
+          <span className="tool-link">開始計算 →</span>
+        </Link>
       </div>
     </div>
   );
