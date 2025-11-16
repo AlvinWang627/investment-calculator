@@ -28,10 +28,18 @@ export default function FitnessCalculator() {
   };
 
   const handleNumberChange = (field, value) => {
-    setUserData((prev) => ({
-      ...prev,
-      [field]: +value,
-    }));
+    // Allow empty string for bodyFat field
+    if (field === "bodyFat" && value === "") {
+      setUserData((prev) => ({
+        ...prev,
+        [field]: "",
+      }));
+    } else {
+      setUserData((prev) => ({
+        ...prev,
+        [field]: +value,
+      }));
+    }
   };
 
   // Validation

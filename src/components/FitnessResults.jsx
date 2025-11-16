@@ -84,19 +84,19 @@ export default function FitnessResults({ userData }) {
         </CardContent>
       </Card>
 
-      {/* FFMI Card (only if bodyFat is provided) */}
-      {results.ffmi && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-purple-600" />
-              FFMI (去脂體重指數)
-            </CardTitle>
-            <CardDescription>
-              Fat-Free Mass Index - 評估肌肉量多寡
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+      {/* FFMI Card - Always show */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <TrendingUp className="h-5 w-5 text-purple-600" />
+            FFMI (去脂體重指數)
+          </CardTitle>
+          <CardDescription>
+            Fat-Free Mass Index - 評估肌肉量多寡
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {results.ffmi ? (
             <div className="space-y-4">
               <div className="flex items-baseline gap-2">
                 <span className="text-4xl font-bold text-purple-600">
@@ -124,9 +124,32 @@ export default function FitnessResults({ userData }) {
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
-      )}
+          ) : (
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                <AlertCircle className="h-5 w-5 text-amber-600 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium text-amber-900 dark:text-amber-100">
+                    無法計算 FFMI
+                  </p>
+                  <p className="text-xs text-amber-700 dark:text-amber-300 mt-1">
+                    因體脂率未填寫，無法計算去脂體重指數。請在上方輸入您的體脂率以獲得 FFMI 數據。
+                  </p>
+                </div>
+              </div>
+              <div className="pt-4 border-t">
+                <h4 className="font-semibold text-sm mb-2">關於 FFMI</h4>
+                <p className="text-xs text-muted-foreground">
+                  FFMI (Fat-Free Mass Index) 是評估肌肉量的指標，需要體脂率數據才能計算。
+                  {userData.gender === "male"
+                    ? "男性正常範圍為 17-22，超過 25 通常代表優秀的肌肉量。"
+                    : "女性正常範圍為 14-19，超過 21 通常代表優秀的肌肉量。"}
+                </p>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Ideal Weight Card */}
       <Card>
