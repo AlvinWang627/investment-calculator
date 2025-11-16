@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
 import InvestmentCalculator from "./pages/InvestmentCalculator";
+import MortgageCalculator from "./pages/MortgageCalculator";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/investment-calculator" element={<InvestmentCalculator />} />
+                <Route path="/mortgage-calculator" element={<MortgageCalculator />} />
               </Routes>
             </div>
           </div>
