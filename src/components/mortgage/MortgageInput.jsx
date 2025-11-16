@@ -1,8 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Save } from "lucide-react";
 
-export default function MortgageInput({ userInput, onChange }) {
+export default function MortgageInput({ userInput, onChange, onSave }) {
   return (
     <div className="max-w-4xl mx-auto px-4">
       <Card>
@@ -79,6 +81,12 @@ export default function MortgageInput({ userInput, onChange }) {
                 onChange={(event) => onChange("currentYear", event.target.value)}
               />
             </div>
+          </div>
+          <div className="mt-6 flex justify-end">
+            <Button onClick={onSave} className="gap-2">
+              <Save className="h-4 w-4" />
+              儲存參數
+            </Button>
           </div>
         </CardContent>
       </Card>
