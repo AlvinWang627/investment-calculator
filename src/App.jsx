@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
 import InvestmentCalculator from "./pages/InvestmentCalculator";
 import MortgageCalculator from "./pages/MortgageCalculator";
+import FitnessCalculator from "./pages/FitnessCalculator";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/investment-calculator" element={<InvestmentCalculator />} />
                 <Route path="/mortgage-calculator" element={<MortgageCalculator />} />
+                <Route path="/fitness-calculator" element={<FitnessCalculator />} />
               </Routes>
             </div>
           </div>
