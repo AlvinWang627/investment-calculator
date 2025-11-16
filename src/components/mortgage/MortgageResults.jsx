@@ -94,7 +94,7 @@ export default function MortgageResults({ summary, userInput }) {
                 {formatter.format(summary.remainingBalance)}
               </div>
               <div className="text-xs text-slate-500">
-                原始本金 {formatter.format(userInput.loanAmount)}
+                原始本金 {userInput.loanAmount} 萬
               </div>
             </div>
           </div>

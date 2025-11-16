@@ -15,7 +15,7 @@ export default function MortgageInput({ userInput, onChange }) {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="loanAmount">房貸總額</Label>
+              <Label htmlFor="loanAmount">房貸總額（萬元）</Label>
               <Input
                 id="loanAmount"
                 type="number"
