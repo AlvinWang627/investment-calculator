@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MortgageInput from "../components/mortgage/MortgageInput";
 import MortgageResults from "../components/mortgage/MortgageResults";
 import MortgageSchedule from "../components/mortgage/MortgageSchedule";
+import SavedParameters from "../components/mortgage/SavedParameters";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { calculateMortgageSchedule, calculateMortgageSummary } from "../util/mortgage";
+import { getSavedParameters, saveParameters, deleteParameters } from "../util/mortgageStorage";
 
 export default function MortgageCalculator() {
   const currentYear = new Date().getFullYear();
@@ -17,6 +19,15 @@ export default function MortgageCalculator() {
     startYear: 2020,
     currentYear: currentYear,
   });
+
+  const [savedItems, setSavedItems] = useState([]);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+
+  // 載入已儲存的參數
+  useEffect(() => {
+    const loaded = getSavedParameters();
+    setSavedItems(loaded);
+  }, []);
 
   // 輸入驗證
   const validInput =
@@ -36,6 +47,32 @@ export default function MortgageCalculator() {
         [inputIdentifier]: +newValue,
       };
     });
+  }
+
+  // 儲存參數
+  function handleSave() {
+    const success = saveParameters(userInput);
+    if (success) {
+      const updated = getSavedParameters();
+      setSavedItems(updated);
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 3000);
+    }
+  }
+
+  // 載入參數
+  function handleLoad(parameters) {
+    setUserInput(parameters);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // 刪除參數
+  function handleDelete(id) {
+    const success = deleteParameters(id);
+    if (success) {
+      const updated = getSavedParameters();
+      setSavedItems(updated);
+    }
   }
 
   // 計算結果
@@ -67,7 +104,27 @@ export default function MortgageCalculator() {
         </div>
 
         {/* 輸入表單 */}
-        <MortgageInput userInput={userInput} onChange={handleChange} />
+        <MortgageInput userInput={userInput} onChange={handleChange} onSave={handleSave} />
+
+        {/* 儲存成功訊息 */}
+        {saveSuccess && (
+          <div className="max-w-4xl mx-auto px-4">
+            <Alert className="bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800">
+              <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" />
+              <AlertTitle className="text-green-800 dark:text-green-300">儲存成功</AlertTitle>
+              <AlertDescription className="text-green-700 dark:text-green-400">
+                參數已成功儲存！您可以在下方的已儲存參數列表中找到它。
+              </AlertDescription>
+            </Alert>
+          </div>
+        )}
+
+        {/* 已儲存的參數 */}
+        <SavedParameters
+          savedItems={savedItems}
+          onLoad={handleLoad}
+          onDelete={handleDelete}
+        />
 
         {/* 錯誤訊息 */}
         {!validInput && (
