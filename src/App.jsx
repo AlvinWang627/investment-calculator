@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import InvestmentCalculator from "./pages/InvestmentCalculator";
 import MortgageCalculator from "./pages/MortgageCalculator";
 import FitnessCalculator from "./pages/FitnessCalculator";
+import FiveByFive from "./pages/FiveByFive";
+import FiveThreeOne from "./pages/FiveThreeOne";
 
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -21,6 +23,8 @@ function App() {
                 <Route path="/investment-calculator" element={<InvestmentCalculator />} />
                 <Route path="/mortgage-calculator" element={<MortgageCalculator />} />
                 <Route path="/fitness-calculator" element={<FitnessCalculator />} />
+                <Route path="/strength-training/5x5" element={<FiveByFive />} />
+                <Route path="/strength-training/531" element={<FiveThreeOne />} />
               </Routes>
             </div>
           </div>
