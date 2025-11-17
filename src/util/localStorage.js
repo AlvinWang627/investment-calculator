@@ -5,6 +5,8 @@
 const STORAGE_KEYS = {
   FIVE_BY_FIVE: 'strengthTraining_5x5',
   FIVE_THREE_ONE: 'strengthTraining_531',
+  PPL: 'hypertrophy_ppl',
+  UPPER_LOWER: 'hypertrophy_upperLower',
   HISTORY: 'strengthTraining_history'
 };
 
@@ -83,6 +85,80 @@ export function load531Data() {
 }
 
 /**
+ * Save Push/Pull/Legs program data
+ * @param {Object} data - Program data to save
+ */
+export function savePPLData(data) {
+  try {
+    const timestamp = new Date().toISOString();
+    const saveData = {
+      ...data,
+      savedAt: timestamp
+    };
+    localStorage.setItem(STORAGE_KEYS.PPL, JSON.stringify(saveData));
+
+    // Also save to history
+    addToHistory('ppl', saveData);
+
+    return true;
+  } catch (error) {
+    console.error('Error saving PPL data:', error);
+    return false;
+  }
+}
+
+/**
+ * Load Push/Pull/Legs program data
+ * @returns {Object|null} Saved data or null if not found
+ */
+export function loadPPLData() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.PPL);
+    return data ? JSON.parse(data) : null;
+  } catch (error) {
+    console.error('Error loading PPL data:', error);
+    return null;
+  }
+}
+
+/**
+ * Save Upper/Lower Split program data
+ * @param {Object} data - Program data to save
+ */
+export function saveUpperLowerData(data) {
+  try {
+    const timestamp = new Date().toISOString();
+    const saveData = {
+      ...data,
+      savedAt: timestamp
+    };
+    localStorage.setItem(STORAGE_KEYS.UPPER_LOWER, JSON.stringify(saveData));
+
+    // Also save to history
+    addToHistory('upperLower', saveData);
+
+    return true;
+  } catch (error) {
+    console.error('Error saving Upper/Lower data:', error);
+    return false;
+  }
+}
+
+/**
+ * Load Upper/Lower Split program data
+ * @returns {Object|null} Saved data or null if not found
+ */
+export function loadUpperLowerData() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.UPPER_LOWER);
+    return data ? JSON.parse(data) : null;
+  } catch (error) {
+    console.error('Error loading Upper/Lower data:', error);
+    return null;
+  }
+}
+
+/**
  * Add entry to training history
  * @param {string} programType - Type of program (5x5 or 531)
  * @param {Object} data - Program data
@@ -125,11 +201,28 @@ export function getHistory() {
 
 /**
  * Clear specific program data
- * @param {string} programType - Type of program (5x5 or 531)
+ * @param {string} programType - Type of program (5x5, 531, ppl, or upperLower)
  */
 export function clearProgramData(programType) {
   try {
-    const key = programType === '5x5' ? STORAGE_KEYS.FIVE_BY_FIVE : STORAGE_KEYS.FIVE_THREE_ONE;
+    let key;
+    switch (programType) {
+      case '5x5':
+        key = STORAGE_KEYS.FIVE_BY_FIVE;
+        break;
+      case '531':
+        key = STORAGE_KEYS.FIVE_THREE_ONE;
+        break;
+      case 'ppl':
+        key = STORAGE_KEYS.PPL;
+        break;
+      case 'upperLower':
+        key = STORAGE_KEYS.UPPER_LOWER;
+        break;
+      default:
+        console.error('Unknown program type:', programType);
+        return false;
+    }
     localStorage.removeItem(key);
     return true;
   } catch (error) {
@@ -172,6 +265,23 @@ function generateSummary(programType, data) {
       cycles: data.cycles,
       exercises: Object.keys(data.maxLifts || {}),
       maxLifts: data.maxLifts,
+      unit: data.unit
+    };
+  } else if (programType === 'ppl') {
+    return {
+      weeks: data.weeks,
+      frequency: data.frequency,
+      pushExercises: Object.keys(data.pushExercises || {}),
+      pullExercises: Object.keys(data.pullExercises || {}),
+      legExercises: Object.keys(data.legExercises || {}),
+      unit: data.unit
+    };
+  } else if (programType === 'upperLower') {
+    return {
+      weeks: data.weeks,
+      frequency: data.frequency,
+      upperExercises: Object.keys(data.upperExercises || {}),
+      lowerExercises: Object.keys(data.lowerExercises || {}),
       unit: data.unit
     };
   }

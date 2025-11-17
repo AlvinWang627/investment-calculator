@@ -7,6 +7,8 @@ import MortgageCalculator from "./pages/MortgageCalculator";
 import FitnessCalculator from "./pages/FitnessCalculator";
 import FiveByFive from "./pages/FiveByFive";
 import FiveThreeOne from "./pages/FiveThreeOne";
+import PushPullLegs from "./pages/PushPullLegs";
+import UpperLowerSplit from "./pages/UpperLowerSplit";
 
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -25,6 +27,8 @@ function App() {
                 <Route path="/fitness-calculator" element={<FitnessCalculator />} />
                 <Route path="/strength-training/5x5" element={<FiveByFive />} />
                 <Route path="/strength-training/531" element={<FiveThreeOne />} />
+                <Route path="/hypertrophy/ppl" element={<PushPullLegs />} />
+                <Route path="/hypertrophy/upper-lower" element={<UpperLowerSplit />} />
               </Routes>
             </div>
           </div>
