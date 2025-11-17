@@ -4,7 +4,8 @@ import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'lucide-react'
 
 export default function Sidebar({ isCollapsed, setIsCollapsed }) {
   const [expandedMenus, setExpandedMenus] = useState({
-    strengthTraining: false
+    strengthTraining: false,
+    hypertrophy: false
   });
 
   const toggleSidebar = () => {
@@ -83,6 +84,38 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
                   <NavLink to="/strength-training/531">
                     <span className="submenu-icon">📈</span>
                     <span className="nav-text">5/3/1 課表</span>
+                  </NavLink>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          {/* Hypertrophy Training Menu with Submenu */}
+          <li className="has-submenu">
+            <div
+              className={`submenu-trigger ${expandedMenus.hypertrophy ? 'expanded' : ''}`}
+              onClick={() => toggleSubmenu('hypertrophy')}
+            >
+              <span className="icon">💪</span>
+              <span className="nav-text">肌肥大課表</span>
+              {!isCollapsed && (
+                <span className="submenu-arrow">
+                  {expandedMenus.hypertrophy ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </span>
+              )}
+            </div>
+            {expandedMenus.hypertrophy && !isCollapsed && (
+              <ul className="submenu">
+                <li>
+                  <NavLink to="/hypertrophy/ppl">
+                    <span className="submenu-icon">🔄</span>
+                    <span className="nav-text">Push/Pull/Legs</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/hypertrophy/upper-lower">
+                    <span className="submenu-icon">⬆️</span>
+                    <span className="nav-text">Upper/Lower Split</span>
                   </NavLink>
                 </li>
               </ul>
