@@ -212,6 +212,7 @@
 #sidebar.collapsed .submenu-trigger {
   padding: 1rem 0.5rem;
   justify-content: center;
+  cursor: default;
 }
 
 #sidebar.collapsed .submenu-trigger .nav-text {

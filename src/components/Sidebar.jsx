@@ -13,6 +13,9 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
   };
 
   const toggleSubmenu = (menuKey) => {
+    // Don't toggle submenu when sidebar is collapsed (only use hover)
+    if (isCollapsed) return;
+
     setExpandedMenus(prev => ({
       ...prev,
       [menuKey]: !prev[menuKey]
