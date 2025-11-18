@@ -88,6 +88,20 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
                 </li>
               </ul>
             )}
+            {/* Hover dropdown for collapsed sidebar */}
+            {isCollapsed && (
+              <div className="submenu-hover-dropdown">
+                <div className="submenu-title">力量課表</div>
+                <NavLink to="/strength-training/5x5">
+                  <span className="submenu-icon">📊</span>
+                  <span>5x5 課表</span>
+                </NavLink>
+                <NavLink to="/strength-training/531">
+                  <span className="submenu-icon">📈</span>
+                  <span>5/3/1 課表</span>
+                </NavLink>
+              </div>
+            )}
           </li>
 
           {/* Hypertrophy Training Menu with Submenu */}
@@ -119,6 +133,20 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
                   </NavLink>
                 </li>
               </ul>
+            )}
+            {/* Hover dropdown for collapsed sidebar */}
+            {isCollapsed && (
+              <div className="submenu-hover-dropdown">
+                <div className="submenu-title">肌肥大課表</div>
+                <NavLink to="/hypertrophy/ppl">
+                  <span className="submenu-icon">🔄</span>
+                  <span>Push/Pull/Legs</span>
+                </NavLink>
+                <NavLink to="/hypertrophy/upper-lower">
+                  <span className="submenu-icon">⬆️</span>
+                  <span>Upper/Lower Split</span>
+                </NavLink>
+              </div>
             )}
           </li>
         </ul>
