@@ -40,19 +40,19 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/investment-calculator">
+            <NavLink to="/investment">
               <span className="icon">💰</span>
               <span className="nav-text">Investment Calculator</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/mortgage-calculator">
+            <NavLink to="/mortgage">
               <span className="icon">🏡</span>
               <span className="nav-text">房貸計算機</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/fitness-calculator">
+            <NavLink to="/fitness">
               <span className="icon">💪</span>
               <span className="nav-text">健身計算機</span>
             </NavLink>
@@ -75,13 +75,13 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
             {expandedMenus.strengthTraining && !isCollapsed && (
               <ul className="submenu">
                 <li>
-                  <NavLink to="/strength-training/5x5">
+                  <NavLink to="/strength/5x5">
                     <span className="submenu-icon">📊</span>
                     <span className="nav-text">5x5 課表</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/strength-training/531">
+                  <NavLink to="/strength/531">
                     <span className="submenu-icon">📈</span>
                     <span className="nav-text">5/3/1 課表</span>
                   </NavLink>
@@ -92,11 +92,11 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
             {isCollapsed && (
               <div className="submenu-hover-dropdown">
                 <div className="submenu-title">力量課表</div>
-                <NavLink to="/strength-training/5x5">
+                <NavLink to="/strength/5x5">
                   <span className="submenu-icon">📊</span>
                   <span>5x5 課表</span>
                 </NavLink>
-                <NavLink to="/strength-training/531">
+                <NavLink to="/strength/531">
                   <span className="submenu-icon">📈</span>
                   <span>5/3/1 課表</span>
                 </NavLink>
