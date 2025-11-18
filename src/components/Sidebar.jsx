@@ -37,25 +37,25 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
       <nav>
         <ul>
           <li>
-            <NavLink to="/" end>
+            <NavLink to="/calculator" end>
               <span className="icon">🏠</span>
               <span className="nav-text">Home</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/investment">
+            <NavLink to="/calculator/investment">
               <span className="icon">💰</span>
               <span className="nav-text">Investment Calculator</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/mortgage">
+            <NavLink to="/calculator/mortgage">
               <span className="icon">🏡</span>
               <span className="nav-text">房貸計算機</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/fitness">
+            <NavLink to="/calculator/fitness">
               <span className="icon">💪</span>
               <span className="nav-text">健身計算機</span>
             </NavLink>
@@ -78,13 +78,13 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
             {expandedMenus.strengthTraining && !isCollapsed && (
               <ul className="submenu">
                 <li>
-                  <NavLink to="/strength/5x5">
+                  <NavLink to="/calculator/strength/5x5">
                     <span className="submenu-icon">📊</span>
                     <span className="nav-text">5x5 課表</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/strength/531">
+                  <NavLink to="/calculator/strength/531">
                     <span className="submenu-icon">📈</span>
                     <span className="nav-text">5/3/1 課表</span>
                   </NavLink>
@@ -95,11 +95,11 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
             {isCollapsed && (
               <div className="submenu-hover-dropdown">
                 <div className="submenu-title">力量課表</div>
-                <NavLink to="/strength/5x5">
+                <NavLink to="/calculator/strength/5x5">
                   <span className="submenu-icon">📊</span>
                   <span>5x5 課表</span>
                 </NavLink>
-                <NavLink to="/strength/531">
+                <NavLink to="/calculator/strength/531">
                   <span className="submenu-icon">📈</span>
                   <span>5/3/1 課表</span>
                 </NavLink>
@@ -124,13 +124,13 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
             {expandedMenus.hypertrophy && !isCollapsed && (
               <ul className="submenu">
                 <li>
-                  <NavLink to="/hypertrophy/ppl">
+                  <NavLink to="/calculator/hypertrophy/ppl">
                     <span className="submenu-icon">🔄</span>
                     <span className="nav-text">Push/Pull/Legs</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/hypertrophy/upper-lower">
+                  <NavLink to="/calculator/hypertrophy/upper-lower">
                     <span className="submenu-icon">⬆️</span>
                     <span className="nav-text">Upper/Lower Split</span>
                   </NavLink>
@@ -141,11 +141,11 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
             {isCollapsed && (
               <div className="submenu-hover-dropdown">
                 <div className="submenu-title">肌肥大課表</div>
-                <NavLink to="/hypertrophy/ppl">
+                <NavLink to="/calculator/hypertrophy/ppl">
                   <span className="submenu-icon">🔄</span>
                   <span>Push/Pull/Legs</span>
                 </NavLink>
-                <NavLink to="/hypertrophy/upper-lower">
+                <NavLink to="/calculator/hypertrophy/upper-lower">
                   <span className="submenu-icon">⬆️</span>
                   <span>Upper/Lower Split</span>
                 </NavLink>
