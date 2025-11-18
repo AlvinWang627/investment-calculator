@@ -22,11 +22,11 @@ function App() {
             <div className="container mx-auto">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/investment-calculator" element={<InvestmentCalculator />} />
-                <Route path="/mortgage-calculator" element={<MortgageCalculator />} />
-                <Route path="/fitness-calculator" element={<FitnessCalculator />} />
-                <Route path="/strength-training/5x5" element={<FiveByFive />} />
-                <Route path="/strength-training/531" element={<FiveThreeOne />} />
+                <Route path="/investment" element={<InvestmentCalculator />} />
+                <Route path="/mortgage" element={<MortgageCalculator />} />
+                <Route path="/fitness" element={<FitnessCalculator />} />
+                <Route path="/strength/5x5" element={<FiveByFive />} />
+                <Route path="/strength/531" element={<FiveThreeOne />} />
                 <Route path="/hypertrophy/ppl" element={<PushPullLegs />} />
                 <Route path="/hypertrophy/upper-lower" element={<UpperLowerSplit />} />
               </Routes>
