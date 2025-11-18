@@ -141,7 +141,7 @@ export function calculatePPLProgression({
 
   ['push', 'pull', 'legs'].forEach(category => {
     Object.keys(progression[category]).forEach(exercise => {
-      chartData[category][exercise] = progression[category].history;
+      chartData[category][exercise] = progression[category][exercise].history;
     });
   });
 
@@ -154,7 +154,7 @@ export function calculatePPLProgression({
 
   ['push', 'pull', 'legs'].forEach(category => {
     Object.keys(progression[category]).forEach(exercise => {
-      finalWeights[category][exercise] = progression[category].current;
+      finalWeights[category][exercise] = progression[category][exercise].current;
     });
   });
 
@@ -289,7 +289,7 @@ export function calculateUpperLowerProgression({
 
   ['upper', 'lower'].forEach(category => {
     Object.keys(progression[category]).forEach(exercise => {
-      chartData[category][exercise] = progression[category].history;
+      chartData[category][exercise] = progression[category][exercise].history;
     });
   });
 
@@ -301,7 +301,7 @@ export function calculateUpperLowerProgression({
 
   ['upper', 'lower'].forEach(category => {
     Object.keys(progression[category]).forEach(exercise => {
-      finalWeights[category][exercise] = progression[category].current;
+      finalWeights[category][exercise] = progression[category][exercise].current;
     });
   });
 
