@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import InvestmentCalculator from "./pages/InvestmentCalculator";
 import MortgageCalculator from "./pages/MortgageCalculator";
@@ -33,6 +34,7 @@ function App() {
             </div>
           </div>
         </main>
+        <ScrollToTop />
       </div>
     </Router>
   );
