@@ -38,9 +38,12 @@ export default function PPLResults({ results }) {
 
   // Calculate summary statistics for each category
   const calculateCategoryStats = (category) => {
+    if (!finalWeights[category]) return [];
+
     const exercises = Object.keys(finalWeights[category]);
     return exercises.map(exercise => {
-      const startWeight = results.chartData[category][exercise][0]?.weight || 0;
+      const exerciseHistory = results.chartData?.[category]?.[exercise];
+      const startWeight = exerciseHistory && exerciseHistory.length > 0 ? exerciseHistory[0].weight : 0;
       const endWeight = finalWeights[category][exercise] || 0;
       const totalGain = endWeight - startWeight;
       const percentGain = startWeight > 0 ? ((totalGain / startWeight) * 100).toFixed(1) : 0;
