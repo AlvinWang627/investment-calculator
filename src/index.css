@@ -299,7 +299,8 @@
   position: relative;
 }
 
-#sidebar.collapsed .has-submenu:hover .submenu-hover-dropdown {
+#sidebar.collapsed .has-submenu:hover .submenu-hover-dropdown,
+#sidebar.collapsed .submenu-hover-dropdown:hover {
   display: block;
   opacity: 1;
   visibility: visible;
@@ -310,7 +311,7 @@
   opacity: 0;
   visibility: hidden;
   position: absolute;
-  left: 60px;
+  left: 100%;
   top: 0;
   min-width: 200px;
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -319,6 +320,7 @@
   padding: 0.5rem 0;
   z-index: 1001;
   transition: opacity 0.2s ease, visibility 0.2s ease;
+  margin-left: -2px;
 }
 
 #sidebar.collapsed .submenu-hover-dropdown::before {
