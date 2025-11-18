@@ -5,6 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle, Save, Trash2 } from 'lucide-react';
+import UpperLowerResults from '@/components/hypertrophy/UpperLowerResults';
+import { calculateUpperLowerProgression } from '@/util/hypertrophyCalculations';
 import { saveUpperLowerData, loadUpperLowerData, clearProgramData } from '@/util/localStorage';
 
 const DEFAULT_UPPER_EXERCISES = {
@@ -109,11 +111,19 @@ export default function UpperLowerSplit() {
       return;
     }
 
-    // Calculate results (to be implemented)
-    const calculatedResults = {
-      ...formData,
-      message: '訓練計畫已生成！'
-    };
+    // Check if all exercises have valid weights
+    const hasInvalidWeight = [
+      ...Object.values(formData.upperExercises),
+      ...Object.values(formData.lowerExercises)
+    ].some(weight => weight < 0);
+
+    if (hasInvalidWeight) {
+      setError('所有動作的起始重量不能為負數');
+      return;
+    }
+
+    // Calculate results using the hypertrophy calculation function
+    const calculatedResults = calculateUpperLowerProgression(formData);
     setResults(calculatedResults);
   };
 
@@ -350,21 +360,7 @@ export default function UpperLowerSplit() {
         </div>
       </form>
 
-      {results && (
-        <Card>
-          <CardHeader>
-            <CardTitle>訓練計畫</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">
-              {results.message}
-            </p>
-            <p className="mt-4 text-sm text-muted-foreground">
-              詳細的訓練計畫結果將在完整實作後顯示
-            </p>
-          </CardContent>
-        </Card>
-      )}
+      {results && <UpperLowerResults results={results} />}
     </div>
   );
 }
