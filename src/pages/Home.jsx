@@ -31,6 +31,13 @@ export default function Home() {
           <p>計算 BMI、BMR/TDEE、FFMI、理想體重和營養素需求。</p>
           <span className="tool-link">開始計算 →</span>
         </Link>
+
+        <Link to="/calculator/stock-dashboard" className="tool-card">
+          <div className="tool-icon">📈</div>
+          <h2>股票投資儀表板</h2>
+          <p>追蹤市場情緒指數、股票價格、匯率和投資者情緒調查。</p>
+          <span className="tool-link">開始使用 →</span>
+        </Link>
       </div>
     </div>
   );

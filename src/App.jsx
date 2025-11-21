@@ -10,6 +10,7 @@ import FiveByFive from "./pages/FiveByFive";
 import FiveThreeOne from "./pages/FiveThreeOne";
 import PushPullLegs from "./pages/PushPullLegs";
 import UpperLowerSplit from "./pages/UpperLowerSplit";
+import StockDashboard from "./pages/StockDashboard";
 
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/calculator/investment" element={<InvestmentCalculator />} />
                 <Route path="/calculator/mortgage" element={<MortgageCalculator />} />
                 <Route path="/calculator/fitness" element={<FitnessCalculator />} />
+                <Route path="/calculator/stock-dashboard" element={<StockDashboard />} />
                 <Route path="/calculator/strength/5x5" element={<FiveByFive />} />
                 <Route path="/calculator/strength/531" element={<FiveThreeOne />} />
                 <Route path="/calculator/hypertrophy/ppl" element={<PushPullLegs />} />

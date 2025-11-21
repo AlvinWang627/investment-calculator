@@ -60,6 +60,12 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
               <span className="nav-text">健身計算機</span>
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/calculator/stock-dashboard">
+              <span className="icon">📈</span>
+              <span className="nav-text">股票投資儀表板</span>
+            </NavLink>
+          </li>
 
           {/* Strength Training Menu with Submenu */}
           <li className="has-submenu">
