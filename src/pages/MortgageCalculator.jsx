@@ -91,10 +91,10 @@ export default function MortgageCalculator() {
   }
 
   return (
-    <div className="mortgage-calculator-page">
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
       <div className="space-y-8">
         {/* 頁面標題 */}
-        <div className="max-w-4xl mx-auto px-4 text-center">
+        <div className="text-center">
           <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-3">
             房貸計算機
           </h1>

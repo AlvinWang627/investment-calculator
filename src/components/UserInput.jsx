@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 
 export default function UserInput({ userInput, onChange }) {
   return (
-    <div className="max-w-4xl mx-auto px-4">
+    <div>
       <Card>
         <CardHeader>
           <CardTitle>Investment Parameters</CardTitle>

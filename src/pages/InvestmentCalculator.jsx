@@ -24,7 +24,7 @@ export default function InvestmentCalculator() {
   }
 
   return (
-    <div className="investment-calculator-page">
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
       <div className="space-y-8">
         <Header />
         <UserInput userInput={userInput} onChange={handleChange} />

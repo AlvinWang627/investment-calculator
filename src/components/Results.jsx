@@ -17,7 +17,7 @@ function Results({ input }) {
     resultData[0].annualInvestment;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 mt-8">
+    <div className="mt-8">
       <Card>
         <CardHeader>
           <CardTitle>Investment Growth Projection</CardTitle>

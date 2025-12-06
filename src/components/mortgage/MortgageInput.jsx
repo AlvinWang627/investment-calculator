@@ -6,7 +6,7 @@ import { Save } from "lucide-react";
 
 export default function MortgageInput({ userInput, onChange, onSave }) {
   return (
-    <div className="max-w-4xl mx-auto px-4">
+    <div>
       <Card>
         <CardHeader>
           <CardTitle>房貸參數</CardTitle>

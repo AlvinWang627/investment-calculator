@@ -5,7 +5,7 @@ export default function MortgageResults({ summary, userInput }) {
   const progressPercentage = Math.min(summary.paymentProgress, 100);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 mt-8">
+    <div className="mt-8">
       <Card>
         <CardHeader>
           <CardTitle>房貸摘要</CardTitle>
