@@ -102,6 +102,7 @@
 
 #sidebar.collapsed {
   width: 60px;
+  overflow: visible;
 }
 
 .sidebar-header {
@@ -159,6 +160,7 @@
 #sidebar.collapsed nav a {
   padding: 1rem 0.5rem;
   justify-content: center;
+  gap: 0;
 }
 
 #sidebar nav a:hover {
@@ -213,6 +215,7 @@
   padding: 1rem 0.5rem;
   justify-content: center;
   cursor: default;
+  gap: 0;
 }
 
 #sidebar.collapsed .submenu-trigger .nav-text {
