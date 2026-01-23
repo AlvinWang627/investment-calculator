@@ -15,21 +15,21 @@ function App() {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <Router>
+    <Router basename="/calculator">
       <div className="app-container">
         <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
         <main className="main-content" style={{ marginLeft: isCollapsed ? '60px' : '250px' }}>
           <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 py-8">
             <div className="container mx-auto">
               <Routes>
-                <Route path="/calculator" element={<Home />} />
-                <Route path="/calculator/investment" element={<InvestmentCalculator />} />
-                <Route path="/calculator/mortgage" element={<MortgageCalculator />} />
-                <Route path="/calculator/fitness" element={<FitnessCalculator />} />
-                <Route path="/calculator/strength/5x5" element={<FiveByFive />} />
-                <Route path="/calculator/strength/531" element={<FiveThreeOne />} />
-                <Route path="/calculator/hypertrophy/ppl" element={<PushPullLegs />} />
-                <Route path="/calculator/hypertrophy/upper-lower" element={<UpperLowerSplit />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/investment" element={<InvestmentCalculator />} />
+                <Route path="/mortgage" element={<MortgageCalculator />} />
+                <Route path="/fitness" element={<FitnessCalculator />} />
+                <Route path="/strength/5x5" element={<FiveByFive />} />
+                <Route path="/strength/531" element={<FiveThreeOne />} />
+                <Route path="/hypertrophy/ppl" element={<PushPullLegs />} />
+                <Route path="/hypertrophy/upper-lower" element={<UpperLowerSplit />} />
               </Routes>
             </div>
           </div>

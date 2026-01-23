@@ -1,12 +1,30 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function Sidebar({ isCollapsed, setIsCollapsed }) {
+  const location = useLocation();
   const [expandedMenus, setExpandedMenus] = useState({
     strengthTraining: false,
     hypertrophy: false
   });
+
+  useEffect(() => {
+    if (isCollapsed) {
+      setExpandedMenus({
+        strengthTraining: false,
+        hypertrophy: false
+      });
+    } else {
+      // Auto-expand menus based on current path
+      if (location.pathname.startsWith('/strength')) {
+        setExpandedMenus(prev => ({ ...prev, strengthTraining: true }));
+      }
+      if (location.pathname.startsWith('/hypertrophy')) {
+        setExpandedMenus(prev => ({ ...prev, hypertrophy: true }));
+      }
+    }
+  }, [isCollapsed, location.pathname]);
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -37,25 +55,25 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
       <nav>
         <ul>
           <li>
-            <NavLink to="/calculator" end>
+            <NavLink to="/" end>
               <span className="icon">🏠</span>
               <span className="nav-text">Home</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/calculator/investment">
+            <NavLink to="/investment">
               <span className="icon">💰</span>
               <span className="nav-text">Investment Calculator</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/calculator/mortgage">
+            <NavLink to="/mortgage">
               <span className="icon">🏡</span>
               <span className="nav-text">房貸計算機</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/calculator/fitness">
+            <NavLink to="/fitness">
               <span className="icon">💪</span>
               <span className="nav-text">健身計算機</span>
             </NavLink>
@@ -64,7 +82,7 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
           {/* Strength Training Menu with Submenu */}
           <li className="has-submenu">
             <div
-              className={`submenu-trigger ${expandedMenus.strengthTraining ? 'expanded' : ''}`}
+              className={`submenu-trigger ${expandedMenus.strengthTraining ? 'expanded' : ''} ${location.pathname.startsWith('/strength') ? 'active' : ''}`}
               onClick={() => toggleSubmenu('strengthTraining')}
             >
               <span className="icon">🏋️</span>
@@ -78,13 +96,13 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
             {expandedMenus.strengthTraining && !isCollapsed && (
               <ul className="submenu">
                 <li>
-                  <NavLink to="/calculator/strength/5x5">
+                  <NavLink to="/strength/5x5">
                     <span className="submenu-icon">📊</span>
                     <span className="nav-text">5x5 課表</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/calculator/strength/531">
+                  <NavLink to="/strength/531">
                     <span className="submenu-icon">📈</span>
                     <span className="nav-text">5/3/1 課表</span>
                   </NavLink>
@@ -95,11 +113,11 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
             {isCollapsed && (
               <div className="submenu-hover-dropdown">
                 <div className="submenu-title">力量課表</div>
-                <NavLink to="/calculator/strength/5x5">
+                <NavLink to="/strength/5x5">
                   <span className="submenu-icon">📊</span>
                   <span>5x5 課表</span>
                 </NavLink>
-                <NavLink to="/calculator/strength/531">
+                <NavLink to="/strength/531">
                   <span className="submenu-icon">📈</span>
                   <span>5/3/1 課表</span>
                 </NavLink>
@@ -110,7 +128,7 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
           {/* Hypertrophy Training Menu with Submenu */}
           <li className="has-submenu">
             <div
-              className={`submenu-trigger ${expandedMenus.hypertrophy ? 'expanded' : ''}`}
+              className={`submenu-trigger ${expandedMenus.hypertrophy ? 'expanded' : ''} ${location.pathname.startsWith('/hypertrophy') ? 'active' : ''}`}
               onClick={() => toggleSubmenu('hypertrophy')}
             >
               <span className="icon">💪</span>
@@ -124,13 +142,13 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
             {expandedMenus.hypertrophy && !isCollapsed && (
               <ul className="submenu">
                 <li>
-                  <NavLink to="/calculator/hypertrophy/ppl">
+                  <NavLink to="/hypertrophy/ppl">
                     <span className="submenu-icon">🔄</span>
                     <span className="nav-text">Push/Pull/Legs</span>
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/calculator/hypertrophy/upper-lower">
+                  <NavLink to="/hypertrophy/upper-lower">
                     <span className="submenu-icon">⬆️</span>
                     <span className="nav-text">Upper/Lower Split</span>
                   </NavLink>
@@ -141,11 +159,11 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
             {isCollapsed && (
               <div className="submenu-hover-dropdown">
                 <div className="submenu-title">肌肥大課表</div>
-                <NavLink to="/calculator/hypertrophy/ppl">
+                <NavLink to="/hypertrophy/ppl">
                   <span className="submenu-icon">🔄</span>
                   <span>Push/Pull/Legs</span>
                 </NavLink>
-                <NavLink to="/calculator/hypertrophy/upper-lower">
+                <NavLink to="/hypertrophy/upper-lower">
                   <span className="submenu-icon">⬆️</span>
                   <span>Upper/Lower Split</span>
                 </NavLink>
