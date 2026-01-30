@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -34,6 +35,7 @@ const DEFAULT_LEG_EXERCISES = {
 };
 
 export default function PushPullLegs() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     weeks: 12,
     frequency: 6, // 6 days per week (PPL x 2)
@@ -100,17 +102,17 @@ export default function PushPullLegs() {
 
     // Validation
     if (formData.weeks < 1 || formData.weeks > 52) {
-      setError('訓練週數必須在 1-52 週之間');
+      setError(t('strength.fiveByFive.invalidWeeks')); // Reuse key
       return;
     }
 
     if (formData.sets < 1 || formData.sets > 10) {
-      setError('組數必須在 1-10 組之間');
+      setError('組數必須在 1-10 組之間'); // i18n needed
       return;
     }
 
     if (formData.repsMin < 1 || formData.repsMin > formData.repsMax) {
-      setError('次數範圍設定不正確');
+      setError('次數範圍設定不正確'); // i18n needed
       return;
     }
 
@@ -122,7 +124,7 @@ export default function PushPullLegs() {
     ].some(weight => weight < 0);
 
     if (hasInvalidWeight) {
-      setError('所有動作的起始重量不能為負數');
+      setError('所有動作的起始重量不能為負數'); // i18n needed
       return;
     }
 
@@ -138,15 +140,15 @@ export default function PushPullLegs() {
     });
 
     if (success) {
-      setSaveMessage('訓練計畫已儲存！');
+      setSaveMessage(t('strength.fiveByFive.saved'));
       setTimeout(() => setSaveMessage(''), 3000);
     } else {
-      setError('儲存失敗，請稍後再試');
+      setError(t('strength.fiveByFive.saveError'));
     }
   };
 
   const handleClear = () => {
-    if (confirm('確定要清除所有資料嗎？')) {
+    if (confirm(t('strength.fiveByFive.confirmClear'))) {
       clearProgramData('ppl');
       setFormData({
         weeks: 12,
@@ -177,8 +179,8 @@ export default function PushPullLegs() {
           {Object.entries(exercises).map(([key, value]) => (
             <div key={key} className="space-y-2">
               <Label htmlFor={key}>
-                {getExerciseName(key)}
-                {key === 'pullUp' && ' (徒手)'}
+                {t(`exercises.${key}`, key)}
+                {key === 'pullUp' && ' (Bodyweight)'}
               </Label>
               <div className="relative">
                 <Input
@@ -207,10 +209,10 @@ export default function PushPullLegs() {
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Push/Pull/Legs (PPL) 肌肥大課表
+          {t('hypertrophy.ppl.title')}
         </h1>
         <p className="text-muted-foreground">
-          經典的推拉腿分化訓練，適合中高級訓練者，專注於肌肉增長和體能提升
+          {t('hypertrophy.ppl.subtitle')}
         </p>
       </div>
 
@@ -230,15 +232,15 @@ export default function PushPullLegs() {
       <form onSubmit={handleCalculate}>
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>基本設定</CardTitle>
+            <CardTitle>{t('strength.fiveByFive.settings')}</CardTitle>
             <CardDescription>
-              設定訓練週數、頻率和重量單位
+              {t('strength.fiveByFive.settingsDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="weeks">訓練週數</Label>
+                <Label htmlFor="weeks">{t('strength.fiveByFive.weeks')}</Label>
                 <Input
                   id="weeks"
                   type="number"
@@ -251,20 +253,20 @@ export default function PushPullLegs() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="frequency">每週訓練天數</Label>
+                <Label htmlFor="frequency">{t('hypertrophy.ppl.frequency')}</Label>
                 <select
                   id="frequency"
                   value={formData.frequency}
                   onChange={(e) => handleInputChange('frequency', parseInt(e.target.value))}
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <option value="3">3 天 (PPL 各 1 次)</option>
-                  <option value="6">6 天 (PPL 各 2 次)</option>
+                  <option value="3">3 {t('hypertrophy.ppl.daysPerWeek', { days: '' })} (PPL x 1)</option>
+                  <option value="6">6 {t('hypertrophy.ppl.daysPerWeek', { days: '' })} (PPL x 2)</option>
                 </select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="sets">每個動作組數</Label>
+                <Label htmlFor="sets">{t('hypertrophy.ppl.sets')}</Label>
                 <Input
                   id="sets"
                   type="number"
@@ -277,7 +279,7 @@ export default function PushPullLegs() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="reps">次數範圍</Label>
+                <Label htmlFor="reps">{t('hypertrophy.ppl.reps')}</Label>
                 <div className="flex gap-2 items-center">
                   <Input
                     id="repsMin"
@@ -304,7 +306,7 @@ export default function PushPullLegs() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="increment">漸進增重 ({formData.unit})</Label>
+                <Label htmlFor="increment">{t('strength.fiveByFive.increment')} ({formData.unit})</Label>
                 <Input
                   id="increment"
                   type="number"
@@ -317,15 +319,15 @@ export default function PushPullLegs() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="unit">重量單位</Label>
+                <Label htmlFor="unit">{t('strength.fiveByFive.unit')}</Label>
                 <select
                   id="unit"
                   value={formData.unit}
                   onChange={(e) => handleInputChange('unit', e.target.value)}
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <option value="kg">公斤 (kg)</option>
-                  <option value="lbs">磅 (lbs)</option>
+                  <option value="kg">kg</option>
+                  <option value="lbs">lbs</option>
                 </select>
               </div>
             </div>
@@ -335,37 +337,37 @@ export default function PushPullLegs() {
         {renderExerciseInputs(
           'pushExercises',
           formData.pushExercises,
-          '🔴 Push Day 起始重量',
-          '胸部、肩部、三頭肌訓練動作'
+          t('hypertrophy.ppl.pushTitle'),
+          t('hypertrophy.ppl.pushDesc')
         )}
 
         {renderExerciseInputs(
           'pullExercises',
           formData.pullExercises,
-          '🔵 Pull Day 起始重量',
-          '背部、二頭肌訓練動作'
+          t('hypertrophy.ppl.pullTitle'),
+          t('hypertrophy.ppl.pullDesc')
         )}
 
         {renderExerciseInputs(
           'legExercises',
           formData.legExercises,
-          '🟢 Leg Day 起始重量',
-          '腿部訓練動作'
+          t('hypertrophy.ppl.legTitle'),
+          t('hypertrophy.ppl.legDesc')
         )}
 
         <div className="flex gap-3 mb-8">
           <Button type="submit" size="lg" className="flex-1">
-            生成訓練計畫
+            {t('strength.fiveByFive.calculate')}
           </Button>
           {results && (
             <>
               <Button type="button" size="lg" variant="outline" onClick={handleSave}>
                 <Save className="mr-2 h-4 w-4" />
-                儲存
+                {t('strength.fiveByFive.save')}
               </Button>
               <Button type="button" size="lg" variant="outline" onClick={handleClear}>
                 <Trash2 className="mr-2 h-4 w-4" />
-                清除
+                {t('strength.fiveByFive.clear')}
               </Button>
             </>
           )}
@@ -375,28 +377,4 @@ export default function PushPullLegs() {
       {results && <PPLResults results={results} />}
     </div>
   );
-}
-
-function getExerciseName(key) {
-  const names = {
-    // Push
-    benchPress: '臥推',
-    overheadPress: '肩推',
-    inclinePress: '上斜臥推',
-    lateralRaise: '側平舉',
-    tricepExtension: '三頭肌伸展',
-    // Pull
-    deadlift: '硬舉',
-    barbellRow: '槓鈴划船',
-    pullUp: '引體向上',
-    latPulldown: '滑輪下拉',
-    bicepCurl: '二頭彎舉',
-    // Legs
-    squat: '深蹲',
-    legPress: '腿推',
-    legCurl: '腿彎舉',
-    legExtension: '腿伸展',
-    calfRaise: '提踵'
-  };
-  return names[key] || key;
 }

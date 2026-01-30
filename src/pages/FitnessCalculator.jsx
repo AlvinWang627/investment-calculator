@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,6 +11,7 @@ import FitnessResults from "../components/FitnessResults";
 import { ACTIVITY_LEVELS, GOALS } from "../util/fitness";
 
 export default function FitnessCalculator() {
+  const { t } = useTranslation();
   const [userData, setUserData] = useState({
     gender: "male",
     age: 30,
@@ -56,24 +58,24 @@ export default function FitnessCalculator() {
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          健身計算機
+          {t('fitnessCalc.title')}
         </h1>
         <p className="text-muted-foreground">
-          輸入您的個人資訊，計算 BMI、BMR/TDEE、FFMI、理想體重和營養素需求
+          {t('fitnessCalc.subtitle')}
         </p>
       </div>
 
       {/* Input Form */}
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle>個人資訊</CardTitle>
-          <CardDescription>請填寫您的基本資料以獲得準確的計算結果</CardDescription>
+          <CardTitle>{t('fitnessCalc.personalInfo')}</CardTitle>
+          <CardDescription>{t('fitnessCalc.personalInfoDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Gender */}
             <div className="space-y-3">
-              <Label>性別</Label>
+              <Label>{t('fitnessCalc.gender')}</Label>
               <RadioGroup
                 value={userData.gender}
                 onValueChange={(value) => handleInputChange("gender", value)}
@@ -82,13 +84,13 @@ export default function FitnessCalculator() {
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="male" id="male" />
                   <Label htmlFor="male" className="font-normal cursor-pointer">
-                    男性
+                    {t('fitnessCalc.male')}
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="female" id="female" />
                   <Label htmlFor="female" className="font-normal cursor-pointer">
-                    女性
+                    {t('fitnessCalc.female')}
                   </Label>
                 </div>
               </RadioGroup>
@@ -96,7 +98,7 @@ export default function FitnessCalculator() {
 
             {/* Age */}
             <div className="space-y-2">
-              <Label htmlFor="age">年齡 (歲)</Label>
+              <Label htmlFor="age">{t('fitnessCalc.age')}</Label>
               <Input
                 id="age"
                 type="number"
@@ -110,7 +112,7 @@ export default function FitnessCalculator() {
 
             {/* Height */}
             <div className="space-y-2">
-              <Label htmlFor="height">身高 (cm)</Label>
+              <Label htmlFor="height">{t('fitnessCalc.height')}</Label>
               <Input
                 id="height"
                 type="number"
@@ -124,7 +126,7 @@ export default function FitnessCalculator() {
 
             {/* Weight */}
             <div className="space-y-2">
-              <Label htmlFor="weight">體重 (kg)</Label>
+              <Label htmlFor="weight">{t('fitnessCalc.weight')}</Label>
               <Input
                 id="weight"
                 type="number"
@@ -139,7 +141,7 @@ export default function FitnessCalculator() {
 
             {/* Body Fat */}
             <div className="space-y-2">
-              <Label htmlFor="bodyFat">體脂率 (%) - 選填</Label>
+              <Label htmlFor="bodyFat">{t('fitnessCalc.bodyFat')}</Label>
               <Input
                 id="bodyFat"
                 type="number"
@@ -148,16 +150,16 @@ export default function FitnessCalculator() {
                 min="3"
                 max="60"
                 step="0.1"
-                placeholder="若不知道可留空"
+                placeholder={t('fitnessCalc.bodyFatPlaceholder')}
               />
               <p className="text-xs text-muted-foreground">
-                填寫體脂率可計算 FFMI（去脂體重指數）
+                {t('fitnessCalc.bodyFatDesc')}
               </p>
             </div>
 
             {/* Activity Level */}
             <div className="space-y-2">
-              <Label htmlFor="activityLevel">活動量</Label>
+              <Label htmlFor="activityLevel">{t('fitnessCalc.activityLevel')}</Label>
               <Select
                 value={userData.activityLevel}
                 onValueChange={(value) => handleInputChange("activityLevel", value)}
@@ -166,9 +168,9 @@ export default function FitnessCalculator() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(ACTIVITY_LEVELS).map(([key, { label }]) => (
+                  {Object.keys(ACTIVITY_LEVELS).map((key) => (
                     <SelectItem key={key} value={key}>
-                      {label}
+                      {t(`fitnessCalc.activityLevels.${key}`)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -177,7 +179,7 @@ export default function FitnessCalculator() {
 
             {/* Goal */}
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="goal">目標</Label>
+              <Label htmlFor="goal">{t('fitnessCalc.goal')}</Label>
               <Select
                 value={userData.goal}
                 onValueChange={(value) => handleInputChange("goal", value)}
@@ -186,9 +188,9 @@ export default function FitnessCalculator() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(GOALS).map(([key, { label }]) => (
+                  {Object.keys(GOALS).map((key) => (
                     <SelectItem key={key} value={key}>
-                      {label}
+                      {t(`fitnessCalc.goals.${key}`)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -203,7 +205,7 @@ export default function FitnessCalculator() {
         <Alert variant="destructive" className="mb-8">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
-            請檢查輸入值是否在合理範圍內：年齡 (10-120歲)、身高 (100-250cm)、體重 (30-300kg)、體脂率 (3-60% 或留空)
+            {t('fitnessCalc.validationError')}
           </AlertDescription>
         </Alert>
       )}

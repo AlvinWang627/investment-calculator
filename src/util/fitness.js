@@ -34,17 +34,17 @@ export function calculateBMI(weight, height) {
  */
 export function getBMICategory(bmi) {
   if (bmi < 18.5) {
-    return { category: "過輕", color: "text-blue-600", description: "體重過輕" };
+    return { categoryKey: "underweight", color: "text-blue-600" };
   } else if (bmi < 24) {
-    return { category: "正常", color: "text-green-600", description: "體重正常" };
+    return { categoryKey: "normal", color: "text-green-600" };
   } else if (bmi < 27) {
-    return { category: "過重", color: "text-yellow-600", description: "體重過重" };
+    return { categoryKey: "overweight", color: "text-yellow-600" };
   } else if (bmi < 30) {
-    return { category: "輕度肥胖", color: "text-orange-600", description: "輕度肥胖" };
+    return { categoryKey: "obese1", color: "text-orange-600" };
   } else if (bmi < 35) {
-    return { category: "中度肥胖", color: "text-red-600", description: "中度肥胖" };
+    return { categoryKey: "obese2", color: "text-red-600" };
   } else {
-    return { category: "重度肥胖", color: "text-red-700", description: "重度肥胖" };
+    return { categoryKey: "obese3", color: "text-red-700" };
   }
 }
 
@@ -99,27 +99,27 @@ export function getFFMICategory(ffmi, gender) {
 
   if (gender === "male") {
     if (ffmi < 17) {
-      return { category: "較低", color: "text-blue-600", description: "肌肉量較低" };
+      return { categoryKey: "low", color: "text-blue-600" };
     } else if (ffmi < 20) {
-      return { category: "一般", color: "text-green-600", description: "肌肉量正常" };
+      return { categoryKey: "average", color: "text-green-600" };
     } else if (ffmi < 22) {
-      return { category: "良好", color: "text-green-700", description: "肌肉量良好" };
+      return { categoryKey: "good", color: "text-green-700" };
     } else if (ffmi < 25) {
-      return { category: "優秀", color: "text-emerald-600", description: "肌肉量優秀" };
+      return { categoryKey: "excellent", color: "text-emerald-600" };
     } else {
-      return { category: "卓越", color: "text-emerald-700", description: "肌肉量卓越" };
+      return { categoryKey: "superior", color: "text-emerald-700" };
     }
   } else {
     if (ffmi < 14) {
-      return { category: "較低", color: "text-blue-600", description: "肌肉量較低" };
+      return { categoryKey: "low", color: "text-blue-600" };
     } else if (ffmi < 17) {
-      return { category: "一般", color: "text-green-600", description: "肌肉量正常" };
+      return { categoryKey: "average", color: "text-green-600" };
     } else if (ffmi < 19) {
-      return { category: "良好", color: "text-green-700", description: "肌肉量良好" };
+      return { categoryKey: "good", color: "text-green-700" };
     } else if (ffmi < 21) {
-      return { category: "優秀", color: "text-emerald-600", description: "肌肉量優秀" };
+      return { categoryKey: "excellent", color: "text-emerald-600" };
     } else {
-      return { category: "卓越", color: "text-emerald-700", description: "肌肉量卓越" };
+      return { categoryKey: "superior", color: "text-emerald-700" };
     }
   }
 }

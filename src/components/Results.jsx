@@ -1,4 +1,5 @@
 import { calculateInvestmentResults, formatter } from "../util/investment";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -10,6 +11,7 @@ import {
 } from "@/components/ui/table";
 
 function Results({ input }) {
+  const { t } = useTranslation();
   const resultData = calculateInvestmentResults(input);
   const initialInvestment =
     resultData[0].valueEndOfYear -
@@ -20,20 +22,20 @@ function Results({ input }) {
     <div className="mt-8">
       <Card>
         <CardHeader>
-          <CardTitle>Investment Growth Projection</CardTitle>
+          <CardTitle>{t('investmentCalc.resultsTitle')}</CardTitle>
           <CardDescription>
-            Year-by-year breakdown of your investment returns
+            {t('investmentCalc.resultsDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">Year</TableHead>
-                <TableHead className="text-right">Investment Value</TableHead>
-                <TableHead className="text-right">Interest (Year)</TableHead>
-                <TableHead className="text-right">Total Interest</TableHead>
-                <TableHead className="text-right">Invested Capital</TableHead>
+                <TableHead className="w-[100px]">{t('investmentCalc.year')}</TableHead>
+                <TableHead className="text-right">{t('investmentCalc.value')}</TableHead>
+                <TableHead className="text-right">{t('investmentCalc.interestYear')}</TableHead>
+                <TableHead className="text-right">{t('investmentCalc.totalInterest')}</TableHead>
+                <TableHead className="text-right">{t('investmentCalc.investedCapital')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

@@ -10,6 +10,8 @@ import FiveByFive from "./pages/FiveByFive";
 import FiveThreeOne from "./pages/FiveThreeOne";
 import PushPullLegs from "./pages/PushPullLegs";
 import UpperLowerSplit from "./pages/UpperLowerSplit";
+import OneRepMax from "./pages/OneRepMax";
+import NutrientTracker from "./pages/NutrientTracker";
 
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -26,6 +28,8 @@ function App() {
                 <Route path="/investment" element={<InvestmentCalculator />} />
                 <Route path="/mortgage" element={<MortgageCalculator />} />
                 <Route path="/fitness" element={<FitnessCalculator />} />
+                <Route path="/fitness/1rm" element={<OneRepMax />} />
+                <Route path="/fitness/nutrient-tracker" element={<NutrientTracker />} />
                 <Route path="/strength/5x5" element={<FiveByFive />} />
                 <Route path="/strength/531" element={<FiveThreeOne />} />
                 <Route path="/hypertrophy/ppl" element={<PushPullLegs />} />
@@ -39,5 +43,6 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -10,14 +11,16 @@ import {
 import { formatter } from "../../util/mortgage";
 
 export default function MortgageSchedule({ schedule }) {
+  const { t } = useTranslation();
+
   const getStatusBadge = (status) => {
     const badges = {
-      'grace-completed': { text: '寬限期 ✓', className: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' },
-      'grace-current': { text: '寬限期 (進行中)', className: 'bg-blue-200 text-blue-800 dark:bg-blue-800 dark:text-blue-200' },
-      'grace-future': { text: '寬限期', className: 'bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400' },
-      'completed': { text: '已完成 ✓', className: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300' },
-      'current': { text: '進行中', className: 'bg-yellow-200 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200' },
-      'future': { text: '未來', className: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400' },
+      'grace-completed': { text: t('mortgageCalc.status.graceCompleted'), className: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' },
+      'grace-current': { text: t('mortgageCalc.status.graceCurrent'), className: 'bg-blue-200 text-blue-800 dark:bg-blue-800 dark:text-blue-200' },
+      'grace-future': { text: t('mortgageCalc.status.graceFuture'), className: 'bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400' },
+      'completed': { text: t('mortgageCalc.status.completed'), className: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300' },
+      'current': { text: t('mortgageCalc.status.current'), className: 'bg-yellow-200 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-200' },
+      'future': { text: t('mortgageCalc.status.future'), className: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400' },
     };
 
     const badge = badges[status] || badges['future'];
@@ -45,9 +48,9 @@ export default function MortgageSchedule({ schedule }) {
     <div className="mt-8">
       <Card>
         <CardHeader>
-          <CardTitle>月度還款明細</CardTitle>
+          <CardTitle>{t('mortgageCalc.scheduleTitle')}</CardTitle>
           <CardDescription>
-            詳細的每月還款計劃（共 {schedule.length} 個月）
+            {t('mortgageCalc.scheduleDesc', { months: schedule.length })}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -55,14 +58,14 @@ export default function MortgageSchedule({ schedule }) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[80px]">月份</TableHead>
-                  <TableHead className="w-[120px]">日期</TableHead>
-                  <TableHead className="text-right">月初餘額</TableHead>
-                  <TableHead className="text-right">月付本金</TableHead>
-                  <TableHead className="text-right">月付利息</TableHead>
-                  <TableHead className="text-right">月付總額</TableHead>
-                  <TableHead className="text-right">月終餘額</TableHead>
-                  <TableHead className="text-center">狀態</TableHead>
+                  <TableHead className="w-[80px]">{t('mortgageCalc.table.month')}</TableHead>
+                  <TableHead className="w-[120px]">{t('mortgageCalc.table.date')}</TableHead>
+                  <TableHead className="text-right">{t('mortgageCalc.table.beginningBalance')}</TableHead>
+                  <TableHead className="text-right">{t('mortgageCalc.table.principal')}</TableHead>
+                  <TableHead className="text-right">{t('mortgageCalc.table.interest')}</TableHead>
+                  <TableHead className="text-right">{t('mortgageCalc.table.total')}</TableHead>
+                  <TableHead className="text-right">{t('mortgageCalc.table.endingBalance')}</TableHead>
+                  <TableHead className="text-center">{t('mortgageCalc.table.status')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

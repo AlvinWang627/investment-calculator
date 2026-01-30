@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import MortgageInput from "../components/mortgage/MortgageInput";
 import MortgageResults from "../components/mortgage/MortgageResults";
 import MortgageSchedule from "../components/mortgage/MortgageSchedule";
@@ -9,6 +10,7 @@ import { calculateMortgageSchedule, calculateMortgageSummary } from "../util/mor
 import { getSavedParameters, saveParameters, deleteParameters } from "../util/mortgageStorage";
 
 export default function MortgageCalculator() {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   const [userInput, setUserInput] = useState({
@@ -96,10 +98,10 @@ export default function MortgageCalculator() {
         {/* 頁面標題 */}
         <div className="text-center">
           <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-3">
-            房貸計算機
+            {t('mortgageCalc.title')}
           </h1>
           <p className="text-slate-600 dark:text-slate-400">
-            計算您的房貸還款計劃，包含寬限期選項
+            {t('mortgageCalc.subtitle')}
           </p>
         </div>
 
@@ -111,9 +113,9 @@ export default function MortgageCalculator() {
           <div className="max-w-4xl mx-auto px-4">
             <Alert className="bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800">
               <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" />
-              <AlertTitle className="text-green-800 dark:text-green-300">儲存成功</AlertTitle>
+              <AlertTitle className="text-green-800 dark:text-green-300">{t('mortgageCalc.saveSuccessTitle')}</AlertTitle>
               <AlertDescription className="text-green-700 dark:text-green-400">
-                參數已成功儲存！您可以在下方的已儲存參數列表中找到它。
+                {t('mortgageCalc.saveSuccessDesc')}
               </AlertDescription>
             </Alert>
           </div>
@@ -131,16 +133,16 @@ export default function MortgageCalculator() {
           <div className="max-w-4xl mx-auto px-4">
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
-              <AlertTitle>無效輸入</AlertTitle>
+              <AlertTitle>{t('mortgageCalc.invalidTitle')}</AlertTitle>
               <AlertDescription>
-                請檢查以下條件：
+                {t('mortgageCalc.invalidDesc')}
                 <ul className="list-disc list-inside mt-2 space-y-1">
-                  <li>房貸總額必須大於 0</li>
-                  <li>利率必須大於 0</li>
-                  <li>貸款年數必須大於 0</li>
-                  <li>寬限期必須小於貸款年數</li>
-                  <li>開始年份必須大於 1900</li>
-                  <li>目前年份必須在貸款期間內</li>
+                  <li>{t('mortgageCalc.invalidConditions.loanAmount')}</li>
+                  <li>{t('mortgageCalc.invalidConditions.rate')}</li>
+                  <li>{t('mortgageCalc.invalidConditions.term')}</li>
+                  <li>{t('mortgageCalc.invalidConditions.grace')}</li>
+                  <li>{t('mortgageCalc.invalidConditions.startYear')}</li>
+                  <li>{t('mortgageCalc.invalidConditions.currentYear')}</li>
                 </ul>
               </AlertDescription>
             </Alert>

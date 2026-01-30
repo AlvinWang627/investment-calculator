@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -33,6 +34,7 @@ const DEFAULT_LOWER_EXERCISES = {
 };
 
 export default function UpperLowerSplit() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     weeks: 12,
     frequency: 4, // 4 days per week (Upper x2, Lower x2)
@@ -97,17 +99,17 @@ export default function UpperLowerSplit() {
 
     // Validation
     if (formData.weeks < 1 || formData.weeks > 52) {
-      setError('訓練週數必須在 1-52 週之間');
+      setError(t('strength.fiveByFive.invalidWeeks')); // Reuse key
       return;
     }
 
     if (formData.sets < 1 || formData.sets > 10) {
-      setError('組數必須在 1-10 組之間');
+      setError('組數必須在 1-10 組之間'); // i18n
       return;
     }
 
     if (formData.repsMin < 1 || formData.repsMin > formData.repsMax) {
-      setError('次數範圍設定不正確');
+      setError('次數範圍設定不正確'); // i18n
       return;
     }
 
@@ -118,7 +120,7 @@ export default function UpperLowerSplit() {
     ].some(weight => weight < 0);
 
     if (hasInvalidWeight) {
-      setError('所有動作的起始重量不能為負數');
+      setError('所有動作的起始重量不能為負數'); // i18n
       return;
     }
 
@@ -134,15 +136,15 @@ export default function UpperLowerSplit() {
     });
 
     if (success) {
-      setSaveMessage('訓練計畫已儲存！');
+      setSaveMessage(t('strength.fiveByFive.saved'));
       setTimeout(() => setSaveMessage(''), 3000);
     } else {
-      setError('儲存失敗，請稍後再試');
+      setError(t('strength.fiveByFive.saveError'));
     }
   };
 
   const handleClear = () => {
-    if (confirm('確定要清除所有資料嗎？')) {
+    if (confirm(t('strength.fiveByFive.confirmClear'))) {
       clearProgramData('upperLower');
       setFormData({
         weeks: 12,
@@ -172,8 +174,8 @@ export default function UpperLowerSplit() {
           {Object.entries(exercises).map(([key, value]) => (
             <div key={key} className="space-y-2">
               <Label htmlFor={key}>
-                {getExerciseName(key)}
-                {key === 'pullUp' && ' (徒手)'}
+                {t(`exercises.${key}`, key)}
+                {key === 'pullUp' && ' (Bodyweight)'}
               </Label>
               <div className="relative">
                 <Input
@@ -202,10 +204,10 @@ export default function UpperLowerSplit() {
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Upper/Lower Split 肌肥大課表
+          {t('hypertrophy.upperLower.title')}
         </h1>
         <p className="text-muted-foreground">
-          上下肢分化訓練，適合初中級訓練者，每週訓練 4 天，恢復時間充足
+          {t('hypertrophy.upperLower.subtitle')}
         </p>
       </div>
 
@@ -225,15 +227,15 @@ export default function UpperLowerSplit() {
       <form onSubmit={handleCalculate}>
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>基本設定</CardTitle>
+            <CardTitle>{t('strength.fiveByFive.settings')}</CardTitle>
             <CardDescription>
-              設定訓練週數、頻率和重量單位
+              {t('strength.fiveByFive.settingsDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="weeks">訓練週數</Label>
+                <Label htmlFor="weeks">{t('strength.fiveByFive.weeks')}</Label>
                 <Input
                   id="weeks"
                   type="number"
@@ -246,20 +248,20 @@ export default function UpperLowerSplit() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="frequency">每週訓練天數</Label>
+                <Label htmlFor="frequency">{t('hypertrophy.ppl.frequency')}</Label>
                 <select
                   id="frequency"
                   value={formData.frequency}
                   onChange={(e) => handleInputChange('frequency', parseInt(e.target.value))}
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <option value="4">4 天 (上肢 2 次, 下肢 2 次)</option>
-                  <option value="2">2 天 (上肢 1 次, 下肢 1 次)</option>
+                  <option value="4">4 {t('hypertrophy.ppl.daysPerWeek', { days: '' })} (Upper x 2, Lower x 2)</option>
+                  <option value="2">2 {t('hypertrophy.ppl.daysPerWeek', { days: '' })} (Upper x 1, Lower x 1)</option>
                 </select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="sets">每個動作組數</Label>
+                <Label htmlFor="sets">{t('hypertrophy.ppl.sets')}</Label>
                 <Input
                   id="sets"
                   type="number"
@@ -272,7 +274,7 @@ export default function UpperLowerSplit() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="reps">次數範圍</Label>
+                <Label htmlFor="reps">{t('hypertrophy.ppl.reps')}</Label>
                 <div className="flex gap-2 items-center">
                   <Input
                     id="repsMin"
@@ -299,7 +301,7 @@ export default function UpperLowerSplit() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="increment">漸進增重 ({formData.unit})</Label>
+                <Label htmlFor="increment">{t('strength.fiveByFive.increment')} ({formData.unit})</Label>
                 <Input
                   id="increment"
                   type="number"
@@ -312,15 +314,15 @@ export default function UpperLowerSplit() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="unit">重量單位</Label>
+                <Label htmlFor="unit">{t('strength.fiveByFive.unit')}</Label>
                 <select
                   id="unit"
                   value={formData.unit}
                   onChange={(e) => handleInputChange('unit', e.target.value)}
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <option value="kg">公斤 (kg)</option>
-                  <option value="lbs">磅 (lbs)</option>
+                  <option value="kg">kg</option>
+                  <option value="lbs">lbs</option>
                 </select>
               </div>
             </div>
@@ -330,30 +332,30 @@ export default function UpperLowerSplit() {
         {renderExerciseInputs(
           'upperExercises',
           formData.upperExercises,
-          '⬆️ Upper Day 起始重量',
-          '上半身訓練：胸、背、肩、手臂'
+          t('hypertrophy.upperLower.upperTitle'),
+          t('hypertrophy.upperLower.upperDesc')
         )}
 
         {renderExerciseInputs(
           'lowerExercises',
           formData.lowerExercises,
-          '⬇️ Lower Day 起始重量',
-          '下半身訓練：股四頭、膕繩肌、臀部、小腿'
+          t('hypertrophy.upperLower.lowerTitle'),
+          t('hypertrophy.upperLower.lowerDesc')
         )}
 
         <div className="flex gap-3 mb-8">
           <Button type="submit" size="lg" className="flex-1">
-            生成訓練計畫
+            {t('strength.fiveByFive.calculate')}
           </Button>
           {results && (
             <>
               <Button type="button" size="lg" variant="outline" onClick={handleSave}>
                 <Save className="mr-2 h-4 w-4" />
-                儲存
+                {t('strength.fiveByFive.save')}
               </Button>
               <Button type="button" size="lg" variant="outline" onClick={handleClear}>
                 <Trash2 className="mr-2 h-4 w-4" />
-                清除
+                {t('strength.fiveByFive.clear')}
               </Button>
             </>
           )}
@@ -363,29 +365,4 @@ export default function UpperLowerSplit() {
       {results && <UpperLowerResults results={results} />}
     </div>
   );
-}
-
-function getExerciseName(key) {
-  const names = {
-    // Upper Body
-    benchPress: '臥推',
-    barbellRow: '槓鈴划船',
-    overheadPress: '肩推',
-    pullUp: '引體向上',
-    inclinePress: '上斜臥推',
-    cableRow: '滑輪划船',
-    lateralRaise: '側平舉',
-    bicepCurl: '二頭彎舉',
-    tricepExtension: '三頭肌伸展',
-    // Lower Body
-    squat: '深蹲',
-    romanianDeadlift: '羅馬尼亞硬舉',
-    legPress: '腿推',
-    legCurl: '腿彎舉',
-    legExtension: '腿伸展',
-    lunges: '弓箭步',
-    calfRaise: '提踵',
-    hipThrust: '臀推'
-  };
-  return names[key] || key;
 }

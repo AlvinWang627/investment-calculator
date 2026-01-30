@@ -1,17 +1,12 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import ProgressChart from './ProgressChart';
 import { formatWeight } from '@/util/strengthCalculations';
 
-const EXERCISE_LABELS = {
-  squat: '深蹲',
-  bench: '臥推',
-  deadlift: '硬舉',
-  overheadPress: '過頭推舉',
-  press: '過頭推舉'
-};
-
 export default function FiveThreeOneResults({ results }) {
+  const { t } = useTranslation();
+
   if (!results || !results.cycleData) {
     return null;
   }
@@ -24,9 +19,9 @@ export default function FiveThreeOneResults({ results }) {
       {/* Summary Card */}
       <Card>
         <CardHeader>
-          <CardTitle>訓練總結</CardTitle>
+          <CardTitle>{t('workout.summary')}</CardTitle>
           <CardDescription>
-            {cycleData.length} 個週期 • 每週期 4 週
+            {t('workout.tipsContent.fiveThreeOneDesc', { cycles: cycleData.length })}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -39,16 +34,16 @@ export default function FiveThreeOneResults({ results }) {
 
               return (
                 <div key={exercise} className="p-4 border rounded-lg">
-                  <h3 className="font-semibold text-sm mb-2">{EXERCISE_LABELS[exercise]}</h3>
+                  <h3 className="font-semibold text-sm mb-2">{t(`exercises.${exercise}`)}</h3>
                   <div className="space-y-1">
                     <p className="text-xs text-muted-foreground">
-                      起始 1RM: {formatWeight(startMax, unit)}
+                      {t('workout.start')} 1RM: {formatWeight(startMax, unit)}
                     </p>
                     <p className="text-lg font-bold text-emerald-600">
-                      預計 1RM: {formatWeight(projectedMax, unit)}
+                      {t('workout.end')} 1RM: {formatWeight(projectedMax, unit)}
                     </p>
                     <p className="text-xs text-teal-600">
-                      增加: {formatWeight(totalGain, unit)} ({percentGain}%)
+                      {t('workout.gain')}: {formatWeight(totalGain, unit)} ({percentGain}%)
                     </p>
                   </div>
                 </div>
@@ -63,7 +58,7 @@ export default function FiveThreeOneResults({ results }) {
         data={chartData}
         exercises={exercises}
         unit={unit}
-        title="訓練重量進程圖"
+        title={t('workout.chartTitle')}
         programType="531"
       />
 
@@ -72,9 +67,9 @@ export default function FiveThreeOneResults({ results }) {
         {cycleData.map((cycle) => (
           <Card key={cycle.cycle}>
             <CardHeader>
-              <CardTitle>Cycle {cycle.cycle}</CardTitle>
+              <CardTitle>{t('workout.cycle')} {cycle.cycle}</CardTitle>
               <CardDescription>
-                4 週訓練週期
+                {t('strength.fiveThreeOne.cycleDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -85,9 +80,9 @@ export default function FiveThreeOneResults({ results }) {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead className="w-[140px]">動作</TableHead>
-                          <TableHead className="text-center">訓練最大值</TableHead>
-                          <TableHead className="text-center" colSpan={3}>組數設定</TableHead>
+                          <TableHead className="w-[140px]">{t('workout.exercise')}</TableHead>
+                          <TableHead className="text-center">{t('workout.trainingMax')}</TableHead>
+                          <TableHead className="text-center" colSpan={3}>{t('workout.sets')}</TableHead>
                         </TableRow>
                         <TableRow>
                           <TableHead></TableHead>
@@ -103,7 +98,7 @@ export default function FiveThreeOneResults({ results }) {
                           return (
                             <TableRow key={exercise}>
                               <TableCell className="font-medium">
-                                {EXERCISE_LABELS[exercise]}
+                                {t(`exercises.${exercise}`)}
                               </TableCell>
                               <TableCell className="text-center text-sm">
                                 {formatWeight(exerciseData.trainingMax, unit)}
@@ -136,16 +131,16 @@ export default function FiveThreeOneResults({ results }) {
       {/* Notes Card */}
       <Card>
         <CardHeader>
-          <CardTitle>訓練說明</CardTitle>
+          <CardTitle>{t('workout.tips')}</CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
-            <li><strong>5/5/5+</strong>: 第一週，最後一組盡可能多做</li>
-            <li><strong>3/3/3+</strong>: 第二週，最後一組盡可能多做</li>
-            <li><strong>5/3/1+</strong>: 第三週，最後一組盡可能多做</li>
-            <li><strong>Deload</strong>: 第四週減量週，恢復體力</li>
-            <li>每組前建議做熱身組（使用較輕重量）</li>
-            <li>「+」表示 AMRAP (As Many Reps As Possible)</li>
+            <li><strong>5/5/5+</strong>: Week 1, last set AMRAP</li>
+            <li><strong>3/3/3+</strong>: Week 2, last set AMRAP</li>
+            <li><strong>5/3/1+</strong>: Week 3, last set AMRAP</li>
+            <li><strong>Deload</strong>: Week 4, recovery</li>
+            <li>Warm up before sets</li>
+            <li>"+" means As Many Reps As Possible</li>
           </ul>
         </CardContent>
       </Card>

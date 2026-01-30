@@ -1,17 +1,12 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import ProgressChart from './ProgressChart';
 import { formatWeight } from '@/util/strengthCalculations';
 
-const EXERCISE_LABELS = {
-  squat: '深蹲',
-  bench: '臥推',
-  deadlift: '硬舉',
-  overheadPress: '過頭推舉',
-  row: '槓鈴划船'
-};
-
 export default function FiveByFiveResults({ results }) {
+  const { t } = useTranslation();
+
   if (!results || !results.weeklyData) {
     return null;
   }
@@ -24,9 +19,9 @@ export default function FiveByFiveResults({ results }) {
       {/* Summary Card */}
       <Card>
         <CardHeader>
-          <CardTitle>訓練總結</CardTitle>
+          <CardTitle>{t('workout.summary')}</CardTitle>
           <CardDescription>
-            {weeklyData.length} 週訓練計畫 • 每週 3 次訓練
+            {t('workout.tipsContent.fiveByFiveDesc', { weeks: weeklyData.length })}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -39,16 +34,16 @@ export default function FiveByFiveResults({ results }) {
 
               return (
                 <div key={exercise} className="p-4 border rounded-lg">
-                  <h3 className="font-semibold text-sm mb-2">{EXERCISE_LABELS[exercise]}</h3>
+                  <h3 className="font-semibold text-sm mb-2">{t(`exercises.${exercise}`)}</h3>
                   <div className="space-y-1">
                     <p className="text-xs text-muted-foreground">
-                      起始: {formatWeight(startWeight, unit)}
+                      {t('workout.start')}: {formatWeight(startWeight, unit)}
                     </p>
                     <p className="text-lg font-bold text-emerald-600">
-                      最終: {formatWeight(endWeight, unit)}
+                      {t('workout.end')}: {formatWeight(endWeight, unit)}
                     </p>
                     <p className="text-xs text-teal-600">
-                      增加: {formatWeight(totalGain, unit)} ({percentGain}%)
+                      {t('workout.gain')}: {formatWeight(totalGain, unit)} ({percentGain}%)
                     </p>
                   </div>
                 </div>
@@ -63,37 +58,37 @@ export default function FiveByFiveResults({ results }) {
         data={chartData}
         exercises={exercises}
         unit={unit}
-        title="重量進程圖"
+        title={t('workout.chartTitle')}
         programType="5x5"
       />
 
       {/* Weekly Breakdown */}
       <Card>
         <CardHeader>
-          <CardTitle>每週訓練明細</CardTitle>
+          <CardTitle>{t('workout.weeklyBreakdown')}</CardTitle>
           <CardDescription>
-            詳細的週次訓練計畫
+            {t('mortgageCalc.scheduleDesc', { months: weeklyData.length }).replace('months', 'weeks')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-6">
             {weeklyData.map((weekData) => (
               <div key={weekData.week}>
-                <h3 className="font-semibold mb-3 text-lg">Week {weekData.week}</h3>
+                <h3 className="font-semibold mb-3 text-lg">{t('workout.week')} {weekData.week}</h3>
                 <div className="space-y-4">
                   {weekData.sessions.map((sessionData) => (
                     <div key={sessionData.session} className="border rounded-lg p-4">
                       <h4 className="font-medium mb-2 text-sm text-muted-foreground">
-                        Session {sessionData.session}
+                        {t('workout.session')} {sessionData.session}
                       </h4>
                       <Table>
                         <TableHeader>
                           <TableRow>
-                            <TableHead className="w-[140px]">動作</TableHead>
-                            <TableHead className="text-right">重量</TableHead>
-                            <TableHead className="text-center">組數</TableHead>
-                            <TableHead className="text-center">次數</TableHead>
-                            <TableHead className="text-right">總容量</TableHead>
+                            <TableHead className="w-[140px]">{t('workout.exercise')}</TableHead>
+                            <TableHead className="text-right">{t('workout.weight')}</TableHead>
+                            <TableHead className="text-center">{t('workout.sets')}</TableHead>
+                            <TableHead className="text-center">{t('workout.reps')}</TableHead>
+                            <TableHead className="text-right">{t('workout.volume')}</TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -102,7 +97,7 @@ export default function FiveByFiveResults({ results }) {
                             return (
                               <TableRow key={exercise}>
                                 <TableCell className="font-medium">
-                                  {EXERCISE_LABELS[exercise]}
+                                  {t(`exercises.${exercise}`)}
                                 </TableCell>
                                 <TableCell className="text-right font-semibold text-emerald-600">
                                   {formatWeight(exerciseData.weight, unit)}

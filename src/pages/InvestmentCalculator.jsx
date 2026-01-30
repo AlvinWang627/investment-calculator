@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
 import UserInput from "../components/UserInput";
 import Results from "../components/Results";
@@ -6,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 
 export default function InvestmentCalculator() {
+  const { t } = useTranslation();
   const [userInput, setUserInput] = useState({
     initialInvestment: 10000,
     annualInvestment: 1200,
@@ -32,9 +34,9 @@ export default function InvestmentCalculator() {
           <div className="max-w-4xl mx-auto px-4">
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Invalid Input</AlertTitle>
+              <AlertTitle>{t('investmentCalc.invalidTitle')}</AlertTitle>
               <AlertDescription>
-                Please enter a valid duration (at least 1 year).
+                {t('investmentCalc.invalidDesc')}
               </AlertDescription>
             </Alert>
           </div>

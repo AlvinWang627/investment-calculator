@@ -1,54 +1,71 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
     <div className="home-page">
       <div className="welcome-section">
-        <h1>Welcome to Investment Calculator</h1>
+        <h1>{t('home.welcome')}</h1>
         <p className="subtitle">
-          A simple tool to calculate your investment growth over time with compound interest and annual contributions.
+          {t('home.subtitle')}
         </p>
       </div>
 
       <div className="tools-grid">
         <Link to="/investment" className="tool-card">
           <div className="tool-icon">💰</div>
-          <h2>Investment Calculator</h2>
-          <p>Start calculating your investment returns now.</p>
-          <span className="tool-link">Get Started →</span>
+          <h2>{t('home.investment.title')}</h2>
+          <p>{t('home.investment.desc')}</p>
+          <span className="tool-link">{t('home.investment.action')}</span>
         </Link>
 
         <Link to="/mortgage" className="tool-card">
           <div className="tool-icon">🏡</div>
-          <h2>房貸計算機</h2>
-          <p>計算您的房貸還款計劃，包含寬限期選項。</p>
-          <span className="tool-link">開始計算 →</span>
+          <h2>{t('home.mortgage.title')}</h2>
+          <p>{t('home.mortgage.desc')}</p>
+          <span className="tool-link">{t('home.mortgage.action')}</span>
         </Link>
 
         <Link to="/fitness" className="tool-card">
           <div className="tool-icon">💪</div>
-          <h2>健身計算機</h2>
-          <p>計算 BMI、BMR/TDEE、FFMI、理想體重和營養素需求。</p>
-          <span className="tool-link">開始計算 →</span>
+          <h2>{t('home.fitness.title')}</h2>
+          <p>{t('home.fitness.desc')}</p>
+          <span className="tool-link">{t('home.fitness.action')}</span>
+        </Link>
+
+        <Link to="/fitness/1rm" className="tool-card">
+          <div className="tool-icon">🔢</div>
+          <h2>{t('home.oneRepMax.title')}</h2>
+          <p>{t('home.oneRepMax.desc')}</p>
+          <span className="tool-link">{t('home.oneRepMax.action')}</span>
+        </Link>
+
+        <Link to="/fitness/nutrient-tracker" className="tool-card">
+          <div className="tool-icon">🥗</div>
+          <h2>{t('home.nutrientTracker.title')}</h2>
+          <p>{t('home.nutrientTracker.desc')}</p>
+          <span className="tool-link">{t('home.nutrientTracker.action')}</span>
         </Link>
 
         <div className="tool-card multi-link-card">
           <div className="tool-icon">🏋️</div>
-          <h2>力量課表</h2>
-          <p>經典力量訓練計畫，助您突破重量極限。</p>
+          <h2>{t('home.strength.title')}</h2>
+          <p>{t('home.strength.desc')}</p>
           <div className="tool-links-group">
-            <Link to="/strength/5x5" className="tool-link">5x5 課表 →</Link>
-            <Link to="/strength/531" className="tool-link">5/3/1 課表 →</Link>
+            <Link to="/strength/5x5" className="tool-link">{t('sidebar.fiveByFive')} →</Link>
+            <Link to="/strength/531" className="tool-link">{t('sidebar.fiveThreeOne')} →</Link>
           </div>
         </div>
 
         <div className="tool-card multi-link-card">
           <div className="tool-icon">💪</div>
-          <h2>肌肥大課表</h2>
-          <p>專業分化訓練，優化肌肉生長效率。</p>
+          <h2>{t('home.hypertrophy.title')}</h2>
+          <p>{t('home.hypertrophy.desc')}</p>
           <div className="tool-links-group">
-            <Link to="/hypertrophy/ppl" className="tool-link">Push/Pull/Legs →</Link>
-            <Link to="/hypertrophy/upper-lower" className="tool-link">Upper/Lower Split →</Link>
+            <Link to="/hypertrophy/ppl" className="tool-link">{t('sidebar.ppl')} →</Link>
+            <Link to="/hypertrophy/upper-lower" className="tool-link">{t('sidebar.upperLower')} →</Link>
           </div>
         </div>
       </div>

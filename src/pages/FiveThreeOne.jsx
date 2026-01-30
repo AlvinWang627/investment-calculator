@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -18,6 +19,7 @@ const DEFAULT_MAX_LIFTS = {
 };
 
 export default function FiveThreeOne() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     cycles: 4,
     maxLifts: DEFAULT_MAX_LIFTS,
@@ -84,19 +86,19 @@ export default function FiveThreeOne() {
 
     // Validation
     if (formData.cycles < 1 || formData.cycles > 12) {
-      setError('訓練週期數必須在 1-12 之間');
+      setError('訓練週期數必須在 1-12 之間'); // Could be moved to i18n
       return;
     }
 
     if (formData.trainingMaxPercent < 50 || formData.trainingMaxPercent > 100) {
-      setError('訓練最大值百分比必須在 50-100% 之間');
+      setError('訓練最大值百分比必須在 50-100% 之間'); // Could be moved to i18n
       return;
     }
 
     // Check if all exercises have valid weights
     const hasInvalidWeight = Object.values(formData.maxLifts).some(weight => weight <= 0);
     if (hasInvalidWeight) {
-      setError('所有動作的 1RM 必須大於 0');
+      setError(t('strength.fiveByFive.invalidWeights')); // Reusing key
       return;
     }
 
@@ -112,15 +114,15 @@ export default function FiveThreeOne() {
     });
 
     if (success) {
-      setSaveMessage('訓練計畫已儲存！');
+      setSaveMessage(t('strength.fiveByFive.saved'));
       setTimeout(() => setSaveMessage(''), 3000);
     } else {
-      setError('儲存失敗，請稍後再試');
+      setError(t('strength.fiveByFive.saveError'));
     }
   };
 
   const handleClear = () => {
-    if (confirm('確定要清除所有資料嗎？')) {
+    if (confirm(t('strength.fiveByFive.confirmClear'))) {
       clearProgramData('531');
       setFormData({
         cycles: 4,
@@ -139,10 +141,10 @@ export default function FiveThreeOne() {
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          5/3/1 力量訓練課表
+          {t('strength.fiveThreeOne.title')}
         </h1>
         <p className="text-muted-foreground">
-          Jim Wendler 的 5/3/1 訓練系統，基於週期化漸進訓練原則
+          {t('strength.fiveThreeOne.subtitle')}
         </p>
       </div>
 
@@ -162,15 +164,15 @@ export default function FiveThreeOne() {
       <form onSubmit={handleCalculate}>
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>基本設定</CardTitle>
+            <CardTitle>{t('strength.fiveThreeOne.settings')}</CardTitle>
             <CardDescription>
-              設定訓練週期數和重量單位
+              {t('strength.fiveByFive.settingsDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="cycles">訓練週期數</Label>
+                <Label htmlFor="cycles">{t('strength.fiveThreeOne.cycles')}</Label>
                 <Input
                   id="cycles"
                   type="number"
@@ -180,11 +182,11 @@ export default function FiveThreeOne() {
                   onChange={(e) => handleInputChange('cycles', parseInt(e.target.value) || 0)}
                   required
                 />
-                <p className="text-xs text-muted-foreground">每週期 4 週</p>
+                <p className="text-xs text-muted-foreground">{t('strength.fiveThreeOne.cycleDesc')}</p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="trainingMaxPercent">訓練最大值百分比 (%)</Label>
+                <Label htmlFor="trainingMaxPercent">{t('strength.fiveThreeOne.trainingMax')}</Label>
                 <Input
                   id="trainingMaxPercent"
                   type="number"
@@ -194,19 +196,19 @@ export default function FiveThreeOne() {
                   onChange={(e) => handleInputChange('trainingMaxPercent', parseInt(e.target.value) || 0)}
                   required
                 />
-                <p className="text-xs text-muted-foreground">建議 85-90%</p>
+                <p className="text-xs text-muted-foreground">{t('strength.fiveThreeOne.trainingMaxDesc')}</p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="unit">重量單位</Label>
+                <Label htmlFor="unit">{t('strength.fiveByFive.unit')}</Label>
                 <select
                   id="unit"
                   value={formData.unit}
                   onChange={(e) => handleInputChange('unit', e.target.value)}
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <option value="kg">公斤 (kg)</option>
-                  <option value="lbs">磅 (lbs)</option>
+                  <option value="kg">kg</option>
+                  <option value="lbs">lbs</option>
                 </select>
               </div>
             </div>
@@ -215,9 +217,9 @@ export default function FiveThreeOne() {
 
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>1RM 最大重量設定</CardTitle>
+            <CardTitle>{t('strength.fiveThreeOne.oneRmSettings')}</CardTitle>
             <CardDescription>
-              輸入每個動作的單次最大重量（1RM）
+              {t('strength.fiveThreeOne.oneRmDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -238,15 +240,15 @@ export default function FiveThreeOne() {
 
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>週期增量設定</CardTitle>
+            <CardTitle>{t('strength.fiveThreeOne.increments')}</CardTitle>
             <CardDescription>
-              每完成一個週期後增加的重量
+              {t('strength.fiveThreeOne.incrementsDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="upperIncrement">上肢動作增量 ({formData.unit})</Label>
+                <Label htmlFor="upperIncrement">{t('strength.fiveThreeOne.upper')} ({formData.unit})</Label>
                 <Input
                   id="upperIncrement"
                   type="number"
@@ -256,11 +258,11 @@ export default function FiveThreeOne() {
                   onChange={(e) => handleIncrementChange('upper', parseFloat(e.target.value) || 0)}
                   required
                 />
-                <p className="text-xs text-muted-foreground">臥推、過頭推舉</p>
+                <p className="text-xs text-muted-foreground">{t('strength.fiveThreeOne.upperDesc')}</p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="lowerIncrement">下肢動作增量 ({formData.unit})</Label>
+                <Label htmlFor="lowerIncrement">{t('strength.fiveThreeOne.lower')} ({formData.unit})</Label>
                 <Input
                   id="lowerIncrement"
                   type="number"
@@ -270,7 +272,7 @@ export default function FiveThreeOne() {
                   onChange={(e) => handleIncrementChange('lower', parseFloat(e.target.value) || 0)}
                   required
                 />
-                <p className="text-xs text-muted-foreground">深蹲、硬舉</p>
+                <p className="text-xs text-muted-foreground">{t('strength.fiveThreeOne.lowerDesc')}</p>
               </div>
             </div>
           </CardContent>
@@ -278,17 +280,17 @@ export default function FiveThreeOne() {
 
         <div className="flex gap-3 mb-8">
           <Button type="submit" size="lg" className="flex-1">
-            計算訓練計畫
+            {t('strength.fiveByFive.calculate')}
           </Button>
           {results && (
             <>
               <Button type="button" size="lg" variant="outline" onClick={handleSave}>
                 <Save className="mr-2 h-4 w-4" />
-                儲存
+                {t('strength.fiveByFive.save')}
               </Button>
               <Button type="button" size="lg" variant="outline" onClick={handleClear}>
                 <Trash2 className="mr-2 h-4 w-4" />
-                清除
+                {t('strength.fiveByFive.clear')}
               </Button>
             </>
           )}

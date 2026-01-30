@@ -1,21 +1,24 @@
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export default function UserInput({ userInput, onChange }) {
+  const { t } = useTranslation();
+
   return (
     <div>
       <Card>
         <CardHeader>
-          <CardTitle>Investment Parameters</CardTitle>
+          <CardTitle>{t('investmentCalc.parameters')}</CardTitle>
           <CardDescription>
-            Enter your investment details to calculate potential returns
+            {t('investmentCalc.parametersDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="initialInvestment">Initial Investment ($)</Label>
+              <Label htmlFor="initialInvestment">{t('investmentCalc.initialInvestment')}</Label>
               <Input
                 id="initialInvestment"
                 type="number"
@@ -27,7 +30,7 @@ export default function UserInput({ userInput, onChange }) {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="annualInvestment">Annual Investment ($)</Label>
+              <Label htmlFor="annualInvestment">{t('investmentCalc.annualInvestment')}</Label>
               <Input
                 id="annualInvestment"
                 type="number"
@@ -39,7 +42,7 @@ export default function UserInput({ userInput, onChange }) {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="expectedReturn">Expected Return (%)</Label>
+              <Label htmlFor="expectedReturn">{t('investmentCalc.expectedReturn')}</Label>
               <Input
                 id="expectedReturn"
                 type="number"
@@ -49,7 +52,7 @@ export default function UserInput({ userInput, onChange }) {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="duration">Duration (Years)</Label>
+              <Label htmlFor="duration">{t('investmentCalc.duration')}</Label>
               <Input
                 id="duration"
                 type="number"

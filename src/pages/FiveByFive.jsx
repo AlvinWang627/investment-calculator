@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -19,6 +20,7 @@ const DEFAULT_EXERCISES = {
 };
 
 export default function FiveByFive() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     weeks: 12,
     exercises: DEFAULT_EXERCISES,
@@ -71,19 +73,19 @@ export default function FiveByFive() {
 
     // Validation
     if (formData.weeks < 1 || formData.weeks > 52) {
-      setError('訓練週數必須在 1-52 週之間');
+      setError(t('strength.fiveByFive.invalidWeeks'));
       return;
     }
 
     if (formData.increment <= 0) {
-      setError('增加重量必須大於 0');
+      setError(t('strength.fiveByFive.invalidIncrement'));
       return;
     }
 
     // Check if all exercises have valid weights
     const hasInvalidWeight = Object.values(formData.exercises).some(weight => weight <= 0);
     if (hasInvalidWeight) {
-      setError('所有動作的起始重量必須大於 0');
+      setError(t('strength.fiveByFive.invalidWeights'));
       return;
     }
 
@@ -99,15 +101,15 @@ export default function FiveByFive() {
     });
 
     if (success) {
-      setSaveMessage('訓練計畫已儲存！');
+      setSaveMessage(t('strength.fiveByFive.saved'));
       setTimeout(() => setSaveMessage(''), 3000);
     } else {
-      setError('儲存失敗，請稍後再試');
+      setError(t('strength.fiveByFive.saveError'));
     }
   };
 
   const handleClear = () => {
-    if (confirm('確定要清除所有資料嗎？')) {
+    if (confirm(t('strength.fiveByFive.confirmClear'))) {
       clearProgramData('5x5');
       setFormData({
         weeks: 12,
@@ -126,10 +128,10 @@ export default function FiveByFive() {
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          5×5 力量訓練課表
+          {t('strength.fiveByFive.title')}
         </h1>
         <p className="text-muted-foreground">
-          經典的 5×5 力量訓練計畫，專注於五大複合動作的漸進式超負荷
+          {t('strength.fiveByFive.subtitle')}
         </p>
       </div>
 
@@ -149,15 +151,15 @@ export default function FiveByFive() {
       <form onSubmit={handleCalculate}>
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>基本設定</CardTitle>
+            <CardTitle>{t('strength.fiveByFive.settings')}</CardTitle>
             <CardDescription>
-              設定訓練週數和重量單位
+              {t('strength.fiveByFive.settingsDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="weeks">訓練週數</Label>
+                <Label htmlFor="weeks">{t('strength.fiveByFive.weeks')}</Label>
                 <Input
                   id="weeks"
                   type="number"
@@ -170,7 +172,7 @@ export default function FiveByFive() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="increment">每次增加重量 ({formData.unit})</Label>
+                <Label htmlFor="increment">{t('strength.fiveByFive.increment')} ({formData.unit})</Label>
                 <Input
                   id="increment"
                   type="number"
@@ -183,15 +185,15 @@ export default function FiveByFive() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="unit">重量單位</Label>
+                <Label htmlFor="unit">{t('strength.fiveByFive.unit')}</Label>
                 <select
                   id="unit"
                   value={formData.unit}
                   onChange={(e) => handleInputChange('unit', e.target.value)}
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <option value="kg">公斤 (kg)</option>
-                  <option value="lbs">磅 (lbs)</option>
+                  <option value="kg">kg</option>
+                  <option value="lbs">lbs</option>
                 </select>
               </div>
             </div>
@@ -200,9 +202,9 @@ export default function FiveByFive() {
 
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>起始重量設定</CardTitle>
+            <CardTitle>{t('strength.fiveByFive.startWeights')}</CardTitle>
             <CardDescription>
-              輸入每個動作的起始重量（建議使用能輕鬆完成 5×5 的重量）
+              {t('strength.fiveByFive.startWeightsDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -222,17 +224,17 @@ export default function FiveByFive() {
 
         <div className="flex gap-3 mb-8">
           <Button type="submit" size="lg" className="flex-1">
-            計算訓練計畫
+            {t('strength.fiveByFive.calculate')}
           </Button>
           {results && (
             <>
               <Button type="button" size="lg" variant="outline" onClick={handleSave}>
                 <Save className="mr-2 h-4 w-4" />
-                儲存
+                {t('strength.fiveByFive.save')}
               </Button>
               <Button type="button" size="lg" variant="outline" onClick={handleClear}>
                 <Trash2 className="mr-2 h-4 w-4" />
-                清除
+                {t('strength.fiveByFive.clear')}
               </Button>
             </>
           )}

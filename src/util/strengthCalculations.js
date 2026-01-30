@@ -239,16 +239,55 @@ export function formatWeight(weight, unit = 'kg') {
  * Calculate estimated 1RM from reps
  * @param {number} weight - Weight lifted
  * @param {number} reps - Number of reps
+ * @param {string} formula - Formula to use ('epley' or 'brzycki')
  * @returns {number} Estimated 1RM
  */
-export function calculate1RM(weight, reps) {
+export function calculate1RM(weight, reps, formula = 'epley') {
   if (reps === 1) return weight;
-  // Epley formula: 1RM = weight × (1 + reps/30)
+  
+  if (formula === 'brzycki') {
+    // Brzycki formula: 1RM = weight * (36 / (37 - reps))
+    return weight * (36 / (37 - reps));
+  }
+  
+  // Epley formula (default): 1RM = weight × (1 + reps/30)
   return weight * (1 + reps / 30);
 }
 
 /**
+ * Generate 1RM percentage table
+ * @param {number} oneRepMax - The 1RM value
+ * @returns {Array} Array of objects with percentage, weight, and estimated reps
+ */
+export function generate1RMTable(oneRepMax) {
+  const percentages = [100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50];
+  
+  // Estimated reps for percentages based on average standards
+  // (Approximate values commonly used in strength training)
+  const repEstimates = {
+    100: 1,
+    95: 2,
+    90: 4,
+    85: 6,
+    80: 8,
+    75: 10,
+    70: 12,
+    65: 15,
+    60: 20,
+    55: 24,
+    50: 30
+  };
+
+  return percentages.map(percent => ({
+    percentage: percent,
+    weight: oneRepMax * (percent / 100),
+    reps: repEstimates[percent] || '-'
+  }));
+}
+
+/**
  * Convert between kg and lbs
+
  * @param {number} weight - Weight value
  * @param {string} fromUnit - Source unit
  * @param {string} toUnit - Target unit
